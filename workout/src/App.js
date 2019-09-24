@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Route, Link} from "react-router-dom";
 import './App.css';
 import styled from "styled-components"
@@ -9,13 +9,16 @@ import GetStarted from "./components/GetStarted";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import PreviousWorkout from "./components/PreviousWorkout";
-import PreviousWorkoutCard from "./components/PreviousWorkoutCard";
 import CurrentWorkout from "./components/CurrentWorkout";
 import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
 
-// Adding private route, which must be used for components that require the user to be log-in 
+// Contexts 
+import {WorkoutContext} from "./contexts/WorkoutContext";
+
+// Adding private route and axiosWithAuth, which must be used for components that require the user to be log-in 
 import PrivateRoute from "./components/PrivateRoute";
+import axiosWithAuth from "./utils/axiosWithAuth";
 
 const AppNav = styled.nav`
   background-color: dodgerblue;
@@ -28,24 +31,45 @@ const AppNav = styled.nav`
 
 
 function App() {
-  return (
-    <div className="App">
-      <AppNav>
-        <h1>Weight Lifting</h1>
-        <MobileMenu></MobileMenu>
-      </AppNav>
-      <Route exact path="/" component={GetStarted} />
-      <Route path="login" component={Login} />
-      <Route path="signup" component={SignUp} />
-      <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>
-      <Route path="/today" render={(props) => <CurrentWorkout {...props} />  }/>
-      <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
-    
+  const [workoutsArray, setWorkoutsArray] = useState([]);
+  const id = localStorage.getItem("id");
+  console.log("Workouts array in app ", workoutsArray);
 
-      {/* <PrivateRoute path="/today" render={(props) => <CurrentWorkout {...props} />  }/>
-      <PrivateRoute path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
-      <PrivateRoute path="/add-exercise" render={(props) => <AddExercise {...props} />  }/> */}
-    </div>
+  const getWorkouts = () => {
+    return axiosWithAuth()
+      .get(`https://weight-lifting-journal-bw.herokuapp.com/{workoutid}`)
+      .then(res => {
+        console.log('Get request successful ', res.data);
+        setWorkoutsArray(res.data);
+      })
+      .catch(err => console.log("Get request failed b/c ", err.response));
+    }
+
+    useEffect(() => {
+      getWorkouts();
+    }, []);
+
+  return (
+    <WorkoutContext.Provider value={{ workoutsArray }}>
+      <div className="App">
+        <AppNav>
+          <Link to="/">
+          <h1>Weight Lifting</h1>
+          </Link>
+          <MobileMenu></MobileMenu>
+        </AppNav>
+        <Route exact path="/" component={GetStarted} />
+        <Route path="login" component={Login} />
+        <Route path="signup" component={SignUp} />
+        <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>
+        <Route path="/today" render={(props) => <CurrentWorkout {...props} workoutsArray={workoutsArray}/>  }/>
+        <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
+    
+        {/* <PrivateRoute path="/today" render={(props) => <CurrentWorkout {...props} />  }/>
+        <PrivateRoute path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
+        <PrivateRoute path="/add-exercise" render={(props) => <AddExercise {...props} />  }/> */}
+      </div>
+    </WorkoutContext.Provider>
   );
 }
 

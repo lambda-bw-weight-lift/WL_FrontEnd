@@ -25,4 +25,4 @@ border-radius: 4px;
 `;
 
 
-export {PrimaryBtn, SecondaryBtn}
+export {PrimaryBtn, SecondaryBtn, DeleteBtn}

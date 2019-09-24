@@ -3,22 +3,24 @@ import styled from "styled-components";
 import {withFormik, Form, Field, ErrorMessage,} from "formik"
 import * as Yup from "yup";
 import axiosWithAuth from "../utils/axiosWithAuth";
+import '../index.css';
 
 function AddExercise ({values, errors, touched, status}) {
     
     return(
         <>   
-           <Form autoComplete="on">
+           <Form className="form" autoComplete="on">
                 <label htmlFor="exercise">Enter Exercise Name:</label>
-                <Field id="exercise" type="text" name="exercise" placeholder="Squats"/>
+                <Field className="form field" id="exercise" type="text" name="exercise" placeholder="Squats"/>
                 <label htmlFor="weight">Enter Exercise Weight:</label>
-                <Field id="weight" type="text" name="weight" placeholder="Enter amount in lbs/kg"/>
+                <Field className="form field" id="weight" type="text" name="weight" placeholder="Enter amount in lbs/kg"/>
                 <label htmlFor="sets">Enter Sets X Reps</label>
-                <Field id="sets" type="text" name="sets" placeholder="Sets X Reps"/>
+                <Field className="form field" id="sets" type="text" name="sets" placeholder="Sets X Reps"/>
                 <label htmlFor="restPeriod">Enter Rest Time</label>
-                <Field id="restPeriod" type="text" name="restPeriod" placeholder="Enter rest time"/>
+                <Field className="form field" id="restPeriod" type="text" name="restPeriod" placeholder="Enter rest time"/>
                 <label htmlFor="exerciseRegion">Target Muscle Group:</label>
-                <Field id="exerciseRegion" type="text" name="exerciseRegion" placeholder="Ex: Legs/Arms/Triceps"/>
+                <Field className="form field" id="exerciseRegion" type="text" name="exerciseRegion" placeholder="Ex: Legs/Arms/Triceps"/>
+                <button className="form button">Submit To Your Workout</button>
             </Form>
             <div>
                 {touched.exercise && errors.exercise &&(<p className="error">{errors.exercise}</p>)}
@@ -51,7 +53,6 @@ const FormikAddExercise= withFormik({
         .post("https://reqres.in/api/users/", values)
         .then(results => {
             console.log(results)
-            setStatus(results.data);
         })
         .catch(error =>{
             console.log("error, did not post data correctly", error)

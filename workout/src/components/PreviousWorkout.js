@@ -11,7 +11,6 @@ export default function PreviousWorkout () {
     
     return(
         <div className="workout-list">
-            <h3> Hello!</h3>
             {workoutsArray.map(workout => (
                 <PreviousWorkoutCard key={workout.id} {...workoutsArray} workout={workout} />
             ))}
