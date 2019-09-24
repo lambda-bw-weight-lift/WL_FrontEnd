@@ -9,7 +9,9 @@ export default function CurrentWorkout () {
     return(
         <div>
             <h3>{Today()} - {Weekday()}</h3>
-           <PrimaryBtn>Add Exercise</PrimaryBtn>
+            <Link to="/add-exercise">
+                <PrimaryBtn>Add Exercise</PrimaryBtn>
+            </Link>
         </div>
-    );
+    );  
 }

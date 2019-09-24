@@ -34,6 +34,7 @@ function App() {
       <Route exact path="/" component={GetStarted} />
       <Route path="/today" render={(props) => <CurrentWorkout {...props} />  }/>
       <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
+      <Route path="/add-exercise" render={(props) => <PreviousWorkout {...props} />  }/>
     
     </div>
   );
