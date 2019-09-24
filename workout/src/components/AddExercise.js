@@ -20,7 +20,8 @@ function AddExercise ({values, errors, touched, status}) {
                 <Field className="form field" id="restPeriod" type="text" name="restPeriod" placeholder="Enter rest time"/>
                 <label htmlFor="exerciseRegion">Target Muscle Group:</label>
                 <Field className="form field" id="exerciseRegion" type="text" name="exerciseRegion" placeholder="Ex: Legs/Arms/Triceps"/>
-                <button className="form button">Submit To Your Workout</button>
+               <button className="form button" type="submit">Submit Exercise</button>
+               
             </Form>
             <div>
                 {touched.exercise && errors.exercise &&(<p className="error">{errors.exercise}</p>)}
@@ -29,6 +30,7 @@ function AddExercise ({values, errors, touched, status}) {
                 {touched.restPeriod && errors.restPeriod &&(<p className="error">{errors.restPeriod}</p>)}
                 {touched.exerciseRegion && errors.exerciseRegion &&(<p className="error">{errors.exerciseRegion}</p>)}
             </div>
+        
         </>
     );
 }

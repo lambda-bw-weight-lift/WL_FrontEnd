@@ -14,25 +14,25 @@ export default function CurrentWorkout (props) {
 
     const [workout, setWorkout] = useState([]);
 
-    const getWorkout = () => {
-        axiosWithAuth()
-            .get(`/workouts/${workoutid}`)
-            .then(res => {
-                setWorkout(res.data);
-            })
-            .catch(err => console.log('Get request current workout failed b/c ', err.response))
-    }
+    // const getWorkout = () => {
+    //     axiosWithAuth()
+    //         .get(`/workouts/${workoutid}`)
+    //         .then(res => {
+    //             setWorkout(res.data);
+    //         })
+    //         .catch(err => console.log('Get request current workout failed b/c ', err.response))
+    // }
 
-    useEffect(() => {
-        getWorkout();
-    }, [])
+    // useEffect(() => {
+    //     getWorkout();
+    // }, [])
     
     // const { workoutsArray } = useContext(WorkoutContext); 
 
    const exerciseCards= workout.map(exercise => 
         <CurrentWorkoutCard exercise={exercise}/>
     )
-    const handleChange = event.target() => {
+    const handleChange = () => {
         axiosWithAuth()
         .post("/workouts/current", workout)
         .then(results => {
