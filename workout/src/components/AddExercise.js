@@ -4,7 +4,7 @@ import {withFormik, Form, Field, ErrorMessage,} from "formik"
 import * as Yup from "yup";
 import axiosWithAuth from "../utils/axiosWithAuth";
 
-function AddExercise (values, errors, touched, status) {
+function AddExercise ({values, errors, touched, status}) {
     
     return(
         <>   
@@ -12,20 +12,20 @@ function AddExercise (values, errors, touched, status) {
                 <label htmlFor="exercise">Enter Exercise Name:</label>
                 <Field id="exercise" type="text" name="exercise" placeholder="Squats"/>
                 <label htmlFor="weight">Enter Exercise Weight:</label>
-                <Field id="weight" type="number" name="weight" placeholder="Amount in lbs/kg"/>
+                <Field id="weight" type="text" name="weight" placeholder="Enter amount in lbs/kg"/>
                 <label htmlFor="sets">Enter Sets X Reps</label>
                 <Field id="sets" type="text" name="sets" placeholder="Sets X Reps"/>
                 <label htmlFor="restPeriod">Enter Rest Time</label>
-                <Field id="restPeriod" type="number" name="restPeriod" placeholder="Rest time in seconds"/>
+                <Field id="restPeriod" type="text" name="restPeriod" placeholder="Enter rest time"/>
                 <label htmlFor="exerciseRegion">Target Muscle Group:</label>
-                <Field id="exerciseRegion" type="text" name="exerciseRegion" placeholder="Example: Legs/Arms/Triceps"/>
+                <Field id="exerciseRegion" type="text" name="exerciseRegion" placeholder="Ex: Legs/Arms/Triceps"/>
             </Form>
             <div>
-                {touched.exercise && ErrorMessage.exercise &&(<p className="error">{errors.exercise}</p>)}
-                {touched.weight && ErrorMessage.weight &&(<p className="error">{errors.weight}</p>)}
-                {touched.sets && ErrorMessage.sets &&(<p className="error">{errors.sets}</p>)}
-                {touched.restPeriod && ErrorMessage.restPeriod &&(<p className="error">{errors.restPeriod}</p>)}
-                {touched.exerciseRegion && ErrorMessage.exerciseRegion &&(<p className="error">{errors.exerciseRegion}</p>)}
+                {touched.exercise && errors.exercise &&(<p className="error">{errors.exercise}</p>)}
+                {touched.weight && errors.weight &&(<p className="error">{errors.weight}</p>)}
+                {touched.sets && errors.sets &&(<p className="error">{errors.sets}</p>)}
+                {touched.restPeriod && errors.restPeriod &&(<p className="error">{errors.restPeriod}</p>)}
+                {touched.exerciseRegion && errors.exerciseRegion &&(<p className="error">{errors.exerciseRegion}</p>)}
             </div>
         </>
     );
@@ -33,9 +33,9 @@ function AddExercise (values, errors, touched, status) {
 const FormikAddExercise= withFormik({
     validationSchema: Yup.object().shape({
         exercise: Yup.string().required("Exercise name required."),
-        weight: Yup.number().required("Enter 0 if body-weight exercise."),
+        weight: Yup.string().required("Enter 0 if body-weight exercise."),
         sets: Yup.string().required("Number of sets/reps required"),
-        restPeriod: Yup.number().required("If no rest enter 0")
+        restPeriod: Yup.string().required("If no rest enter 0")
     }),
     mapPropsToValues({ exercise, weight, sets, restPeriod, exerciseRegion }) {
         return{
