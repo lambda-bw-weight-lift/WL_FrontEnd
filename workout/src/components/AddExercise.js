@@ -48,7 +48,7 @@ const FormikAddExercise= withFormik({
             exerciseRegion: exerciseRegion||""
         };
     },
-    handleSubmit(values, {setStatus}) {
+    handleSubmit(values) {
         axiosWithAuth()
         .post("https://reqres.in/api/users/", values)
         .then(results => {
