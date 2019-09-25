@@ -40,11 +40,34 @@ const data = {
             },
             exerciseThree = {
                 exercise: "farmer walk",
-                exerciseRegion: "upper body",
-                restPeriod: "30 seconds",
-                sets: "3x12",
-                weight: "135 lbs",
+                exerciseRegion: "arms",
+                restPeriod: "60 seconds",
+                sets: "5",
+                weight: "60 lbs",
             },
-        ]
+        ],
+        trainingLogThree = [
+            exerciseOne = {
+                exercise: "dumbbell curls",
+                exerciseRegion: "arms",
+                restPeriod: "30 seconds",
+                sets: "3x15",
+                weight: "30 lbs"
+            },
+            exerciseTwo = {
+                exercise: "triceps extension",
+                exerciseRegion: "arms",
+                restPeriod: "45 seconds",
+                sets: "4x8",
+                weight: "40 lbs",
+            },
+            exerciseThree = {
+                exercise: "farmer walk",
+                exerciseRegion: "arms",
+                restPeriod: "60 seconds",
+                sets: "5",
+                weight: "60 lbs",
+            },
+        ],
     ]
 }
