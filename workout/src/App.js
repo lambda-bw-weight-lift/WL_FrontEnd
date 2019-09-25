@@ -48,6 +48,24 @@ function App() {
       getWorkouts();
     }, []);
 
+    // THIS IS THE CREATION OF THE NEW WORKOUT LANDING ZONE TO WHICH EXERCISES CAN BE ADDED
+    const [trigger, setTrigger] = useState(0)
+    const [workout, setWorkout]= useState([{"workoutname": Today() - Weekday() }])
+    const newWorkoutTrigger = () => {
+        setTrigger(trigger => trigger += 1)
+    }
+    useEffect(() => {
+        
+        axiosWithAuth()
+        .post("/workouts/current/{username}", workout)
+        .then(results => {
+            console.log(results)
+        })
+        .catch(error =>{
+            console.log("error, did not post workout submission correctly", error)
+        })        
+    }, [trigger])
+
   return (
     <WorkoutContext.Provider value={{ workoutsArray }}>
       <div className="App">
@@ -55,9 +73,9 @@ function App() {
           <Link to="/">
           <h1>Weight Lifting</h1>
           </Link>
-          <MobileMenu></MobileMenu>
+          <MobileMenu newWorkoutTrigger={newWorkoutTrigger}></MobileMenu>
         </AppNav>
-        <Route exact path="/" component={GetStarted} />
+        <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
         <Route path="login" component={Login} />
         <Route path="signup" component={SignUp} />
         <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>

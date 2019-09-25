@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   //   },
 });
 
-export default function TemporaryDrawer() {
+export default function MobileMenu(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -46,7 +46,7 @@ export default function TemporaryDrawer() {
     >
       <List>
         <Link to="/today">
-          <ListItem button >
+          <ListItem button onClick={props.newWorkoutTrigger}>
             <ListItemIcon> <i class="material-icons">create</i> </ListItemIcon>
             <ListItemText primary="Create a Workout" />
           </ListItem>

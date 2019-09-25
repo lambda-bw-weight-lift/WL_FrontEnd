@@ -51,7 +51,7 @@ export default function CurrentWorkout (props) {
                 <SecondaryBtn>Add Exercise</SecondaryBtn>
             </Link>
             <Link to="/history">
-                <PrimaryBtn onClick={handleChange}>Submit Workout</PrimaryBtn>
+                <PrimaryBtn>Submit Workout</PrimaryBtn>
             </Link>
         {/* <CurrentWorkoutCard key={workout.id} {...workoutsArray} workout={workout} />  */}
         </div>
