@@ -9,17 +9,18 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   list: {
     width: 320,
   }
-//   fullList: {
-//     width: 'auto',
-//   },
+  //   fullList: {
+  //     width: 'auto',
+  //   },
 });
 
-export default function TemporaryDrawer() {
+export default function MobileMenu(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -44,16 +45,18 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['Create Workout', 'View Past Workouts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <i class="material-icons">
-create
-</i> : <i class="material-icons">
-library_books
-</i>}</ListItemIcon>
-            <ListItemText primary={text} />
+        <Link to="/today">
+          <ListItem button onClick={props.newWorkoutTrigger}>
+            <ListItemIcon> <i class="material-icons">create</i> </ListItemIcon>
+            <ListItemText primary="Create a Workout" />
           </ListItem>
-        ))}
+        </Link>
+        <Link to="/history">
+          <ListItem button >
+            <ListItemIcon> <i class="material-icons">library_books</i> </ListItemIcon>
+            <ListItemText primary="Workout History" />
+          </ListItem>
+        </Link>
       </List>
       <Divider />
       <List>
@@ -67,32 +70,32 @@ library_books
     </div>
   );
 
-//   const fullList = side => (
-//     <div
-//       className={classes.fullList}
-//       role="presentation"
-//       onClick={toggleDrawer(side, false)}
-//       onKeyDown={toggleDrawer(side, false)}
-//     >
-//       <List>
-//         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-//           <ListItem button key={text}>
-//             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-//             <ListItemText primary={text} />
-//           </ListItem>
-//         ))}
-//       </List>
-//       <Divider />
-//       <List>
-//         {['Logout'].map((text, index) => (
-//           <ListItem button key={text}>
-//             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-//             <ListItemText primary={text} />
-//           </ListItem>
-//         ))}
-//       </List>
-//     </div>
-//   );
+  //   const fullList = side => (
+  //     <div
+  //       className={classes.fullList}
+  //       role="presentation"
+  //       onClick={toggleDrawer(side, false)}
+  //       onKeyDown={toggleDrawer(side, false)}
+  //     >
+  //       <List>
+  //         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+  //           <ListItem button key={text}>
+  //             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+  //             <ListItemText primary={text} />
+  //           </ListItem>
+  //         ))}
+  //       </List>
+  //       <Divider />
+  //       <List>
+  //         {['Logout'].map((text, index) => (
+  //           <ListItem button key={text}>
+  //             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+  //             <ListItemText primary={text} />
+  //           </ListItem>
+  //         ))}
+  //       </List>
+  //     </div>
+  //   );
 
   return (
     <div>
