@@ -30,7 +30,6 @@ function AddExercise ({values, errors, touched, status}) {
                 {touched.restPeriod && errors.restPeriod &&(<p className="error">{errors.restPeriod}</p>)}
                 {touched.exerciseRegion && errors.exerciseRegion &&(<p className="error">{errors.exerciseRegion}</p>)}
             </div>
-        
         </>
     );
 }

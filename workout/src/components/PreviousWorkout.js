@@ -5,6 +5,7 @@ import PreviousWorkoutCard from "./PreviousWorkoutCard";
 // Context
 import {WorkoutContext} from '../contexts/WorkoutContext';
 
+
 export default function PreviousWorkout () {
 
     const { workoutsArray } = useContext(WorkoutContext);
@@ -14,6 +15,7 @@ export default function PreviousWorkout () {
             {workoutsArray.map(workout => (
                 <PreviousWorkoutCard key={workout.id} {...workoutsArray} workout={workout} />
             ))}
+            <PreviousWorkoutCard></PreviousWorkoutCard>
         </div>
     );
 }

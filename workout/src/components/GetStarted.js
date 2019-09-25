@@ -14,7 +14,9 @@ export default function GetStarted () {
             <PrimaryBtn>Create Workout</PrimaryBtn>
            </Link>
             <h3>  OR  </h3>
-            <SecondaryBtn>Review Past Workouts</SecondaryBtn>
+            <Link to="/history">
+                <SecondaryBtn>Review Past Workouts</SecondaryBtn>
+            </Link>
         </main>
         
     );
