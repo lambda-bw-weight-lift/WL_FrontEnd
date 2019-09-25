@@ -90,7 +90,7 @@ const [newLogin, setNewLogin] = useState([])
                                 <Label>
                                     Username
                                     </Label>
-                                <MyField name='username' type='username' placeholder='Username' />
+                                <MyField name='username' type='text' placeholder='Username' />
                                 <ErrorMessage name='username' component='div' />
 
                             </Div>
