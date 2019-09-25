@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {Route, Link} from "react-router-dom";
+import {Route, Link, Router} from "react-router-dom";
 import './App.css';
-import styled from "styled-components"
+import styled from "styled-components";
 
 import MobileMenu from "./components/MobileMenu";
 
@@ -12,6 +12,8 @@ import PreviousWorkout from "./components/PreviousWorkout";
 import CurrentWorkout from "./components/CurrentWorkout";
 import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
+import { createBrowserHistory } from 'history';
+
 
 // Contexts 
 import {WorkoutContext} from "./contexts/WorkoutContext";
@@ -19,6 +21,8 @@ import {WorkoutContext} from "./contexts/WorkoutContext";
 // Adding private route and axiosWithAuth, which must be used for components that require the user to be log-in 
 import PrivateRoute from "./components/PrivateRoute";
 import axiosWithAuth from "./utils/axiosWithAuth";
+
+export const history = createBrowserHistory();
 
 const AppNav = styled.nav`
   background-color: dodgerblue;
@@ -75,13 +79,14 @@ function App() {
           </Link>
           <MobileMenu newWorkoutTrigger={newWorkoutTrigger}></MobileMenu>
         </AppNav>
+        <Router history={history}>
         <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
         <Route path="login" component={Login} />
         <Route path="signup" component={SignUp} />
         <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>
         <Route path="/today" render={(props) => <CurrentWorkout {...props} workoutsArray={workoutsArray}/>  }/>
         <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
-    
+        </Router>
         {/* <PrivateRoute path="/today" render={(props) => <CurrentWorkout {...props} />  }/>
         <PrivateRoute path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
         <PrivateRoute path="/add-exercise" render={(props) => <AddExercise {...props} />  }/> */}
