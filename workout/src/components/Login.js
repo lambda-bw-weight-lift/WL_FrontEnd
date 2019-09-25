@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useScrollTrigger } from '@material-ui/core';
+import {history} from '../App'
 
 
 
@@ -26,22 +27,44 @@ const StyledButton = styled.button`
     border: 2px solid #276fd6;
     color: white;
     padding: 0.25em 1em;
-    height: 30px;
+    height: 40px;
     width: 100%;
+
   `;
+
+const Section = styled.section`
+width: 400px;
+margin: auto;
+    padding-top: 15px;
+`;
 
 const Label = styled.label`
   text-align: left;
     margin-bottom: 5px;
     padding: 5px;
-  `;
+    `;
 
-const MyField = styled.input`
-  height:30px;
-  border: 2px solid black;
-  border-radius:5px;
-  padding: 5px;
-  `;
+const errorStyles = {
+    color: '#c02525',
+    fontSize: '.8rem',
+    textAlign: 'left',
+    marginTop: '10px',
+}
+
+const inputStyles = {
+    height: '30px',
+    border: '2px solid black',
+    borderRadius: '5px',
+    padding: '5px'
+}
+
+
+const MyH1 = styled.h1`
+    width: 400px;
+    margin: auto;
+    text-align: initial;
+    padding-bottom: 25px;
+`;
 
 const login = {
     email: '',
@@ -52,23 +75,42 @@ const login = {
 
 function Login(props) {
 
-const [newLogin, setNewLogin] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const onSubmit = (values) => {
         console.log(values)
+        setLoading(true)
 
-        axios.post('https://weight-lifting-journal-bw.herokuapp.com/auth/login', values)
+        const bodyData = new FormData();
+        bodyData.set('username', values.username);
+        bodyData.set('password', values.password);
+        bodyData.set('grant_type', 'password');
+
+        axios({
+          method: 'POST',
+          url: 'https://lifting-weights-java.herokuapp.com/login',
+          data: bodyData,
+    
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Basic ${btoa("pl,mkoijn:pl,mkoijn")}`
+          }})
             .then((response) => {
-              setNewLogin ([...newLogin, response.date])
+                setLoading(false)
+                localStorage.setItem('token', response.data.access_token);
+                history.push('/');
+            })
+            .catch((error) => {
+                // console.log(error.response)
+                setLoading(false)
             })
     }
 
 
     const ValidationSchema = Yup.object().shape({
         username: Yup.string()
-            .min(2, 'Too Short!')
-            .max(10, 'Too Long!')
-            .required('Username is Required'),
+            // .email("Email not valid")
+            .required("Username is required"),
         password: Yup.string()
             .min(8, "Password must be 8 characters or longer")
             .required("Password is required")
@@ -77,7 +119,7 @@ const [newLogin, setNewLogin] = useState([])
 
     return (
         <div>
-            <h2>Login</h2>
+            <MyH1>Login</MyH1>
             <Formik
                 validationSchema={ValidationSchema}
                 initialValues={login}
@@ -90,25 +132,24 @@ const [newLogin, setNewLogin] = useState([])
                                 <Label>
                                     Username
                                     </Label>
-                                <MyField name='username' type='text' placeholder='Username' />
-                                <ErrorMessage name='username' component='div' />
+                                <Field name='username' type='text' placeholder='Enter Username' style={inputStyles} />
+                                <ErrorMessage name='username' component='div' style={errorStyles} />
 
                             </Div>
-
 
                             <Div>
                                 <Label>
                                     Password
                                 </Label>
 
-                                <MyField name='password' type='password' placeholder='Password' />
-                                <ErrorMessage name='password' component='div' />
+                                <Field name='password' type='password' placeholder='Enter Password' style={inputStyles} />
+                                <ErrorMessage name='password' component='div' style={errorStyles} />
 
                             </Div>
 
-                            <Div>
-                                <StyledButton type='submit'>Submit</StyledButton>
-                            </Div>
+                            <Section>
+                                <StyledButton type='submit'>{loading?"Submitting":"Login"}</StyledButton>
+                            </Section>
                         </Form>
                     )
                 }}

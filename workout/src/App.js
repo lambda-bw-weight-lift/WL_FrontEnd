@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Link } from "react-router-dom";
+import { Route, Link, Router } from "react-router-dom";
 import './App.css';
 import styled from "styled-components";
 
@@ -13,6 +13,9 @@ import PreviousWorkoutCard from "./components/PreviousWorkoutCard";
 import CurrentWorkout from "./components/CurrentWorkout";
 import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
+import { createBrowserHistory } from 'history';
+
+export const history = createBrowserHistory();
 
 const AppNav = styled.nav`
   background-color: dodgerblue;
@@ -35,11 +38,13 @@ function App() {
         <MobileMenu></MobileMenu>
       </AppNav>
 
-      <Route path='/login' component={Login} />
-      <Route path='/signup' component={SignUp} />
-      <Route exact path="/" component={GetStarted} />
-      <Route path="/today" render={(props) => <CurrentWorkout {...props} />} />
-      <Route path="/history" render={(props) => <PreviousWorkout {...props} />} />
+      <Router history={history}>
+        <Route path='/login' component={Login} />
+        <Route path='/signup' component={SignUp} />
+        <Route exact path="/" component={GetStarted} />
+        <Route path="/today" render={(props) => <CurrentWorkout {...props} />} />
+        <Route path="/history" render={(props) => <PreviousWorkout {...props} />} />
+      </Router>
 
     </div>
   );
