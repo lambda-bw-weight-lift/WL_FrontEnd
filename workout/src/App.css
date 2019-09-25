@@ -21,4 +21,16 @@
   color: #09d3ac;
 }
 
- 
+
+.server-error{
+  color: white;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 10px;
+  background: #d44f4f;
+  max-width: 400px;
+  margin: auto;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px;
+}
