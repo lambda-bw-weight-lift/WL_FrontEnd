@@ -18,9 +18,23 @@ function AddExercise ({values, errors, touched, status}) {
                 <Field className="form field" id="sets" type="text" name="sets" placeholder="Sets X Reps"/>
                 <label htmlFor="restPeriod">Enter Rest Time</label>
                 <Field className="form field" id="restPeriod" type="text" name="restPeriod" placeholder="Enter rest time"/>
-                <label htmlFor="exerciseRegion">Target Muscle Group:</label>
-                <Field className="form field" id="exerciseRegion" type="text" name="exerciseRegion" placeholder="Ex: Legs/Arms/Triceps"/>
-               <button className="form button" type="submit">Submit Exercise</button>
+                
+                {/* <label htmlFor="exerciseRegion">Target Muscle Group:</label>
+                <Field className="form field" id="exerciseRegion" type="text" name="exerciseRegion" placeholder="Ex: Legs/Arms/Triceps"/> */}
+                <label>
+                    Select Target Muscle Group:
+                    <Field component="select" name="exerciseRegion">
+                        <option value="default">Pick A Group</option>
+                        <option value="aerobic">Aerobic</option>
+                        <option value="arms">Arms</option>
+                        <option value="core">Core</option>
+                        <option value="legs">Legs</option>
+                        <option value="stretches">Stretches</option>
+                        <option value="upperBody">Upper Body</option>
+                    </Field>
+                </label>
+                
+                <button className="form button" type="submit">Submit Exercise</button>
                
             </Form>
             <div>
@@ -51,7 +65,7 @@ const FormikAddExercise= withFormik({
     },
     handleSubmit(values) {
         axiosWithAuth()
-        .post("https://reqres.in/api/users/", values)
+        .post("/workouts/{workoutid}", values)
         .then(results => {
             console.log(results)
         })

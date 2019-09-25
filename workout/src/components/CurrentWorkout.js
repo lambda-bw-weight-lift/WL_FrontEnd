@@ -32,17 +32,17 @@ export default function CurrentWorkout (props) {
    const exerciseCards= workout.map(exercise => 
         <CurrentWorkoutCard exercise={exercise}/>
     )
-    const handleChange = () => {
-        axiosWithAuth()
-        .post("/workouts/current", workout)
-        .then(results => {
-            console.log(results)
-        })
-        .catch(error =>{
-            console.log("error, did not post workout submission correctly", error)
-        })
-        setWorkout([]);
-    }
+    // const handleChange = () => {
+    //     axiosWithAuth()
+    //     .post("/workouts/current", workout)
+    //     .then(results => {
+    //         console.log(results)
+    //     })
+    //     .catch(error =>{
+    //         console.log("error, did not post workout submission correctly", error)
+    //     })
+    //     setWorkout([]);
+    // }
     return(
         <div>
             <h3>{Today()} - {Weekday()}</h3>

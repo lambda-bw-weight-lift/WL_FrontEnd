@@ -32,12 +32,11 @@ const AppNav = styled.nav`
 
 function App() {
   const [workoutsArray, setWorkoutsArray] = useState([]);
-  const id = localStorage.getItem("id");
   console.log("Workouts array in app ", workoutsArray);
 
   const getWorkouts = () => {
     return axiosWithAuth()
-      .get(`https://weight-lifting-journal-bw.herokuapp.com/{workoutid}`)
+      .get(`/workouts/all`) // end point to return all previous workouts
       .then(res => {
         console.log('Get request successful ', res.data);
         setWorkoutsArray(res.data);
