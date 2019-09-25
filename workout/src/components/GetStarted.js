@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 import {PrimaryBtn, SecondaryBtn} from "./Buttons.js"
 import axiosWithAuth from "../utils/axiosWithAuth.js";
-import {Today, Weekday} from "./TodayAndID"
+
 
 //STYLES GO HERE
 // const GetStarted = styled.div

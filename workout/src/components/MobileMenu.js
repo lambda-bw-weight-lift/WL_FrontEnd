@@ -54,7 +54,7 @@ export default function MobileMenu(props) {
         <Link to="/history">
           <ListItem button >
             <ListItemIcon> <i class="material-icons">library_books</i> </ListItemIcon>
-            <ListItemText primary="Workout History" />
+            <ListItemText primary="Review Past Workouts" />
           </ListItem>
         </Link>
       </List>

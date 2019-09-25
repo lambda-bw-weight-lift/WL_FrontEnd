@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {Link} from "react-router-dom"
 import styled from "styled-components";
 import {withFormik, Form, Field, ErrorMessage,} from "formik"
 import * as Yup from "yup";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import '../index.css';
 
+
 function AddExercise ({values, errors, touched, status}) {
-    
+   
+   
     return(
         <>   
            <Form className="form" autoComplete="on">
@@ -33,8 +36,9 @@ function AddExercise ({values, errors, touched, status}) {
                         <option value="upperBody">Upper Body</option>
                     </Field>
                 </label>
-                
-                <button className="form button" type="submit">Submit Exercise</button>
+                <Link to="/today">
+                    <button className="form button" type="submit">Submit Exercise</button>
+                </Link>
                
             </Form>
             <div>
@@ -67,12 +71,12 @@ const FormikAddExercise= withFormik({
         axiosWithAuth()
         .post("/workouts/{workoutid}", values)
         .then(results => {
-            console.log(results)
+            console.log("result of post within handleSubmit in AddExercise.js",results)
         })
         .catch(error =>{
             console.log("error, did not post data correctly", error)
         })
-        console.log("looking for values",values)
+        console.log("looking for values",values)  
     }
 })(AddExercise);
 

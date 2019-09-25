@@ -12,7 +12,7 @@ import PreviousWorkout from "./components/PreviousWorkout";
 import CurrentWorkout from "./components/CurrentWorkout";
 import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
-
+import {Today, Weekday} from "./components/TodayAndID";
 // Contexts 
 import {WorkoutContext} from "./contexts/WorkoutContext";
 
@@ -38,7 +38,7 @@ function App() {
     return axiosWithAuth()
       .get(`/workouts/all`) // end point to return all previous workouts
       .then(res => {
-        console.log('Get request successful ', res.data);
+        console.log('Get request from endpoint "/workouts/all" successful ', res.data);
         setWorkoutsArray(res.data);
       })
       .catch(err => console.log("Get request failed b/c ", err.response));
@@ -50,7 +50,7 @@ function App() {
 
     // THIS IS THE CREATION OF THE NEW WORKOUT LANDING ZONE TO WHICH EXERCISES CAN BE ADDED
     const [trigger, setTrigger] = useState(0)
-    const [workout, setWorkout]= useState([{"workoutname": Today() - Weekday() }])
+    const [workout, setWorkout]= useState({"workoutname": Today() - Weekday() })
     const newWorkoutTrigger = () => {
         setTrigger(trigger => trigger += 1)
     }
@@ -59,10 +59,10 @@ function App() {
         axiosWithAuth()
         .post("/workouts/current/{username}", workout)
         .then(results => {
-            console.log(results)
+            console.log("IT DID post workout submission to endpoint '/workouts/current/{username}' correctly", results)
         })
         .catch(error =>{
-            console.log("error, did not post workout submission correctly", error)
+            console.log("error, did not post workout submission to endpoint '/workouts/current/{username}' correctly", error)
         })        
     }, [trigger])
 
@@ -71,7 +71,7 @@ function App() {
       <div className="App">
         <AppNav>
           <Link to="/">
-          <h1>Weight Lifting</h1>
+            <h1>Weight Lifting</h1>
           </Link>
           <MobileMenu newWorkoutTrigger={newWorkoutTrigger}></MobileMenu>
         </AppNav>
