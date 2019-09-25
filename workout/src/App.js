@@ -1,7 +1,7 @@
-import React from 'react';
-import {Route, Link} from "react-router-dom";
+import React, { useState } from 'react';
+import { Route, Link } from "react-router-dom";
 import './App.css';
-import styled from "styled-components"
+import styled from "styled-components";
 
 import MobileMenu from "./components/MobileMenu";
 
@@ -25,16 +25,22 @@ const AppNav = styled.nav`
 
 
 function App() {
+
+
+
   return (
     <div className="App">
       <AppNav>
         <h1>Weight Lifting</h1>
         <MobileMenu></MobileMenu>
       </AppNav>
+
+      <Route path='/login' component={Login} />
+      <Route path='/signup' component={SignUp} />
       <Route exact path="/" component={GetStarted} />
-      <Route path="/today" render={(props) => <CurrentWorkout {...props} />  }/>
-      <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
-    
+      <Route path="/today" render={(props) => <CurrentWorkout {...props} />} />
+      <Route path="/history" render={(props) => <PreviousWorkout {...props} />} />
+
     </div>
   );
 }
