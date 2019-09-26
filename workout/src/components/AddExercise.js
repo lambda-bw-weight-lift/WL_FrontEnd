@@ -78,7 +78,9 @@ const FormikAddExercise= withFormik({
         };
     },
     handleSubmit(values, { setStatus }) {
-         setStatus(values)
+        console.log("does this work?")
+        console.log("does this send values?", values) 
+        setStatus(values)
     }
 })(AddExercise);
 
