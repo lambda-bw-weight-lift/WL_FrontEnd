@@ -1,68 +1,85 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# LIFTING LOG
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+This app is designed for avid gym goers who want a concrete record of their progress. It's motivating to see how much stronger you've become within a few quick clicks. 
 
-### `npm start`
+However, lifting weights isn't all about how many pounds you add to the bar. It's impossible to use more weight every single workout. But you can also reduce rest periods and do more reps to increase the challenge. Our app allows people to measure all progress metrics.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting Started
+For an example of how to implement this code on the client side see the link below: 
+https://github.com/lambda-bw-weight-lift/WL_FrontEnd
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
-### `npm test`
+## Prerequisites
+All of the below dependencies can be installed using:
+npm (or yarn) install
+npm add < name_of_dependency >
+npm start
+for dev dependencies simply add --dev after the < name_of_dependency >
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
+This project was created using yarn and designed for react client side. Other dependencies include:
+```
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-solid-svg-icons": "^5.10.2",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "a11y-react-emoji": "^1.0.2",
+    "axios": "^0.19.0",
+    "create-react-app": "^3.1.1",
+    "formik": "^1.5.8",
+    "react": "^16.9.0",
+    "react-app": "^1.1.2",
+    "react-dom": "^16.9.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "shards-react": "^1.0.3",
+    "yup": "^0.27.0"
+```
 
-### `npm run build`
+Examples of Tables
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+User table {
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+email <-- Optional
+username <-- Required
+password <-- Required 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Usage
+EndPoints (login, workouts/all, workouts/{workoutid})
 
-### `npm run eject`
+## Register a user - POST
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+https://url.com/signup
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Login - POST
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+https://url.com/login
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Get Started 
 
-## Learn More
+https://url.com
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Add Exercise -POST
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+https://url.com/add-exercise
 
-### Code Splitting
+## Current Workout -GET
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+https://url.com/today
 
-### Analyzing the Bundle Size
+## Past Workouts -GET
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+https://url.com/history
 
-### Making a Progressive Web App
+## Support
+- GITHUB: https://github.com/LambdaSchool 
+- email: daniel.wallen1987@gmail.com
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## Authors and acknowledgment
+This project was made by Nathaniel Mosco, Damilola Olawumi, Nathan Melby, and Daniel Wallen
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Project status
+This project may require some modifications in the future. If there are any issues, note the support section above.   
