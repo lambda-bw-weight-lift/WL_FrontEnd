@@ -1,29 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"
 import styled from "styled-components";
-import {withFormik, Form, Field, ErrorMessage,} from "formik"
+import { withFormik, Form, Field, ErrorMessage, } from "formik"
 import * as Yup from "yup";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import '../index.css';
 
-function AddExercise ({values, errors, touched, status}) {
+
+function AddExercise({values, errors, touched, status }) {
     
-    return(
-        <>   
-           <Form className="form" autoComplete="on">
-                <label htmlFor="exercise">Enter Exercise Name:</label>
-                <Field className="form field" id="exercise" type="text" name="exercise" placeholder="Squats"/>
-                <label htmlFor="weight">Enter Exercise Weight:</label>
-                <Field className="form field" id="weight" type="text" name="weight" placeholder="Enter amount in lbs/kg"/>
-                <label htmlFor="sets">Enter Sets X Reps</label>
-                <Field className="form field" id="sets" type="text" name="sets" placeholder="Sets X Reps"/>
-                <label htmlFor="restPeriod">Enter Rest Time</label>
-                <Field className="form field" id="restPeriod" type="text" name="restPeriod" placeholder="Enter rest time"/>
-                
+
+    return (
+        <>
+            <Form className="form" autoComplete="on">
+                <label htmlFor="exercisename">Enter Exercise Name:</label>
+                <Field className="form field" id="exercisename" type="text" name="exercisename" placeholder="Squats" />
+                <label htmlFor="weightlifted">Enter Exercise Weight:</label>
+                <Field className="form field" id="weightlifted" type="text" name="weightlifted" placeholder="Enter amount in lbs/kg" />
+                <label htmlFor="reps">Enter Sets X Reps</label>
+                <Field className="form field" id="reps" type="text" name="reps" placeholder="Sets X Reps" />
+                <label htmlFor="restperiod">Enter Rest Time</label>
+                <Field className="form field" id="restperiod" type="text" name="restperiod" placeholder="Enter rest time" />
+
                 {/* <label htmlFor="exerciseRegion">Target Muscle Group:</label>
                 <Field className="form field" id="exerciseRegion" type="text" name="exerciseRegion" placeholder="Ex: Legs/Arms/Triceps"/> */}
                 <label>
                     Select Target Muscle Group:
-                    <Field component="select" name="exerciseRegion">
+                    <Field component="select" name="exerciseregion">
                         <option value="default">Pick A Group</option>
                         <option value="aerobic">Aerobic</option>
                         <option value="arms">Arms</option>
@@ -33,49 +36,71 @@ function AddExercise ({values, errors, touched, status}) {
                         <option value="upperBody">Upper Body</option>
                     </Field>
                 </label>
-                
-                <button className="form button" type="submit">Submit Exercise</button>
-               
+                {/* <Link to="/today"> */}
+                    <button className="form button" type="submit">Submit Exercise</button>
+                {/* </Link> */}
+
             </Form>
             <div>
-                {touched.exercise && errors.exercise &&(<p className="error">{errors.exercise}</p>)}
-                {touched.weight && errors.weight &&(<p className="error">{errors.weight}</p>)}
-                {touched.sets && errors.sets &&(<p className="error">{errors.sets}</p>)}
-                {touched.restPeriod && errors.restPeriod &&(<p className="error">{errors.restPeriod}</p>)}
-                {touched.exerciseRegion && errors.exerciseRegion &&(<p className="error">{errors.exerciseRegion}</p>)}
+                {touched.exercisename && errors.exercisename && (<p className="error">{errors.exercisename}</p>)}
+                {touched.weightlifted && errors.weightlifted && (<p className="error">{errors.weightlifted}</p>)}
+                {touched.reps && errors.reps && (<p className="error">{errors.reps}</p>)}
+                {touched.restperiod && errors.restperiod && (<p className="error">{errors.restperiod}</p>)}
+                {touched.exerciseregion && errors.exerciseregion && (<p className="error">{errors.exerciseregion}</p>)}
             </div>
         </>
     );
 }
-const FormikAddExercise= withFormik({
+
+const FormikAddExercise = withFormik({
     validationSchema: Yup.object().shape({
-        exercise: Yup.string().required("Exercise name required."),
-        weight: Yup.string().required("Enter 0 if body-weight exercise."),
-        sets: Yup.string().required("Number of sets/reps required"),
-        restPeriod: Yup.string().required("If no rest enter 0")
+        exercisename: Yup.string().required("Exercise name required."),
+        weightlifted: Yup.string().required("Enter 0 if body-weight exercise."),
+        reps: Yup.string().required("Number of sets/reps required"),
+        restperiod: Yup.string().required("If no rest enter 0")
     }),
-    mapPropsToValues({ exercise, weight, sets, restPeriod, exerciseRegion }) {
-        return{
-            exercise: exercise || "",
-            weight: weight || "",
-            sets: sets ||"",
-            restPeriod: restPeriod|| "",
-            exerciseRegion: exerciseRegion||""
+    mapPropsToValues({ exercisename, weightlifted, reps, restperiod, exerciseregion, workoutid }) {
+        return {
+            exercisename: exercisename || "",
+            weightlifted: weightlifted || "",
+            reps: reps || "",
+            restperiod: restperiod || "",
+            exerciseregion: exerciseregion || "",
+            workoutid: workoutid || ""
         };
     },
-    handleSubmit(values) {
+    handleSubmit(values, { setStatus, props, resetForm }) {
+        console.log(values);
+        console.log("props inside handle submit",props);
+        // const bodyData = new FormData();
+        // bodyData.set("exercisename", values.exercisename);
+        // bodyData.set("weightlifted", values.weightlifted);
+        // bodyData.set("reps", values.reps);
+        // bodyData.set("restperiod", values.restperiod);
+        // bodyData.set("exerciseregion", values.exerciseregion);
+        // bodyData.set("grant_type", "password");
         axiosWithAuth()
-        .post("/workouts/{workoutid}", values)
-        .then(results => {
-            console.log(results)
-        })
-        .catch(error =>{
-            console.log("error, did not post data correctly", error)
-        })
-        console.log("looking for values",values)
+            // .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData, {
+            //     headers: {
+            //         Authorization: `Basic ${btoa("pl,mkoijn:pl,mkoijn")}`,
+            //         'Content-Type': 'application/x-www-form-urlencoded',
+            //     }
+            // .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData)
+            .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, values)
+            .then(results => {
+                console.log("result of post within handleSubmit in AddExercise.js", results)
+                setStatus(results.data);
+                resetForm();
+                props.history.push("/today")
+            })
+            .catch(error => {
+                console.log("error, did not post data correctly", error.response)
+            })
+        console.log("looking for values", values)
+
     }
 })(AddExercise);
 
 console.log("This is the Data", FormikAddExercise)
 
-export default FormikAddExercise
+export default FormikAddExercise;

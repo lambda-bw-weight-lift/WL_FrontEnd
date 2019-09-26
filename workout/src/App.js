@@ -13,7 +13,11 @@ import CurrentWorkout from "./components/CurrentWorkout";
 import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
 import { createBrowserHistory } from 'history';
+<<<<<<< HEAD
 import {Today, Weekday} from "./components/TodayAndID";
+=======
+import {Today, Weekday} from "./components/TodayAndID"
+>>>>>>> team-branch
 
 // Contexts 
 import {WorkoutContext} from "./contexts/WorkoutContext";
@@ -25,7 +29,8 @@ import axiosWithAuth from "./utils/axiosWithAuth";
 export const history = createBrowserHistory();
 
 const AppNav = styled.nav`
-  background-color: dodgerblue;
+  background-color: #0069EB;
+  color: white;
   display:flex;
   justify-content: space-between;
   align-items: center;
@@ -40,9 +45,9 @@ function App() {
 
   const getWorkouts = () => {
     return axiosWithAuth()
-      .get(`/workouts/all`) // end point to return all previous workouts
+      .get(`https://lifting-weights-java.herokuapp.com/workouts/all`) // end point to return all previous workouts
       .then(res => {
-        console.log('Get request successful ', res.data);
+        console.log('Get request from endpoint "/workouts/all" successful ', res.data);
         setWorkoutsArray(res.data);
       })
       .catch(err => console.log("Get request failed b/c ", err.response));
@@ -53,20 +58,27 @@ function App() {
     }, []);
 
     // THIS IS THE CREATION OF THE NEW WORKOUT LANDING ZONE TO WHICH EXERCISES CAN BE ADDED
-    const [trigger, setTrigger] = useState(0)
-    const [workout, setWorkout]= useState([{"workoutname": Today() - Weekday() }])
+    console.log(typeof(Today()))
+    console.log(typeof(Weekday()))
+    // console.log(typeof(`${Today()}  ${Weekday()}`)
+    const [trigger, setTrigger] = useState("")
+    const [workout, setWorkout]= useState({"workoutname": `${Today()} - ${Weekday()}`, "workoutlength" : "" })
+    const [user, setUser] = useState({});
+    // const [workout, setWorkout]= useState({"workoutname": "today **this needs to be replaced with code one line above***" })
     const newWorkoutTrigger = () => {
-        setTrigger(trigger => trigger += 1)
+        setTrigger(trigger => trigger += "1")
     }
     useEffect(() => {
         
-        axiosWithAuth()
-        .post("/workouts/current/{username}", workout)
+        axiosWithAuth(user)
+        .post(`https://lifting-weights-java.herokuapp.com/workouts/current/${user.username}`, workout)
         .then(results => {
-            console.log(results)
+          setWorkout(results.data)
+          setUser(results.data.user)
+          console.log("IT DID post workout submission to endpoint '/workouts/current/{username}' correctly", results, workout)
         })
         .catch(error =>{
-            console.log("error, did not post workout submission correctly", error)
+            console.log("error, did not post workout submission to endpoint '/workouts/current/{username}' correctly", error)
         })        
     }, [trigger])
 
@@ -75,21 +87,32 @@ function App() {
       <div className="App">
         <AppNav>
           <Link to="/">
-          <h1>Weight Lifting</h1>
+            <h1>Weight Lifting</h1>
           </Link>
-          <MobileMenu newWorkoutTrigger={newWorkoutTrigger}></MobileMenu>
+          <MobileMenu newWorkoutTrigger={newWorkoutTrigger} ></MobileMenu>
         </AppNav>
         <Router history={history}>
+<<<<<<< HEAD
         <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>
         <Route path="/today" render={(props) => <CurrentWorkout {...props} workoutsArray={workoutsArray}/>  }/>
         <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
+=======
+        {/* <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} /> */}
+        <Route path="/login" render={(props) => <Login setUser={setUser}/>} />
+        <Route path="/signup" component={SignUp} />
+        {/* <Route path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/> */}
+        {/* <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/> */}
+        {/* <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/> */}
+
+        <PrivateRoute component={AddExercise} path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/>
+        <PrivateRoute component={CurrentWorkout} path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/>
+        <PrivateRoute component={GetStarted} exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
+        <PrivateRoute component={PreviousWorkout} path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
+>>>>>>> team-branch
         </Router>
-        {/* <PrivateRoute path="/today" render={(props) => <CurrentWorkout {...props} />  }/>
-        <PrivateRoute path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
-        <PrivateRoute path="/add-exercise" render={(props) => <AddExercise {...props} />  }/> */}
       </div>
     </WorkoutContext.Provider>
   );

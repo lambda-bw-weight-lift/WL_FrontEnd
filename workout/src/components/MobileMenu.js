@@ -72,14 +72,14 @@ export default function MobileMenu(props) {
 
         <Link to="/today">
           <ListItem button onClick={props.newWorkoutTrigger}>
-            <ListItemIcon> <i class="material-icons">create</i> </ListItemIcon>
+            <ListItemIcon> <i className="material-icons">create</i> </ListItemIcon>
             <ListItemText primary="Create a Workout" />
           </ListItem>
         </Link>
         <Link to="/history">
           <ListItem button >
-            <ListItemIcon> <i class="material-icons">library_books</i> </ListItemIcon>
-            <ListItemText primary="Workout History" />
+            <ListItemIcon> <i className="material-icons">library_books</i> </ListItemIcon>
+            <ListItemText primary="Review Past Workouts" />
           </ListItem>
         </Link>
       </List>
@@ -87,7 +87,7 @@ export default function MobileMenu(props) {
       <List>
         {['Logout'].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <i class="material-icons">exit_to_app</i> : <MailIcon />}</ListItemIcon>
+            <ListItemIcon>{index % 2 === 0 ? <i className="material-icons">exit_to_app</i> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
@@ -125,7 +125,7 @@ export default function MobileMenu(props) {
   return (
     <div>
       {/* <Button onClick={toggleDrawer('left', true)}>Open Left</Button> */}
-      <Button onClick={toggleDrawer('right', true)}>Menu <i class="material-icons">menu</i>  </Button>
+      <Button onClick={toggleDrawer('right', true)}>Menu <i className="material-icons">menu</i>  </Button>
       {/* <Button onClick={toggleDrawer('top', true)}>Open Top</Button>
       <Button onClick={toggleDrawer('bottom', true)}>Open Bottom</Button> */}
       {/* <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
