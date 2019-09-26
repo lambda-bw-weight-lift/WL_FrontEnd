@@ -13,7 +13,7 @@ import CurrentWorkout from "./components/CurrentWorkout";
 import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
 import { createBrowserHistory } from 'history';
-
+import {Today, Weekday} from "./components/TodayAndID"
 
 // Contexts 
 import {WorkoutContext} from "./contexts/WorkoutContext";
@@ -40,7 +40,7 @@ function App() {
 
   const getWorkouts = () => {
     return axiosWithAuth()
-      .get(`/workouts/all`) // end point to return all previous workouts
+      .get(`https://lifting-weights-java.herokuapp.com/workouts/all`) // end point to return all previous workouts
       .then(res => {
         console.log('Get request from endpoint "/workouts/all" successful ', res.data);
         setWorkoutsArray(res.data);
@@ -53,15 +53,19 @@ function App() {
     }, []);
 
     // THIS IS THE CREATION OF THE NEW WORKOUT LANDING ZONE TO WHICH EXERCISES CAN BE ADDED
-    const [trigger, setTrigger] = useState(0)
-    const [workout, setWorkout]= useState({"workoutname": Today() - Weekday() })
+    console.log(typeof(Today()))
+    console.log(typeof(Weekday()))
+    // console.log(typeof(`${Today()}  ${Weekday()}`)
+    const [trigger, setTrigger] = useState("")
+    const [workout, setWorkout]= useState({"workoutname": `${Today()} - ${Weekday()}`, "workoutlength" : "" })
+    // const [workout, setWorkout]= useState({"workoutname": "today **this needs to be replaced with code one line above***" })
     const newWorkoutTrigger = () => {
-        setTrigger(trigger => trigger += 1)
+        setTrigger(trigger => trigger += "1")
     }
     useEffect(() => {
         
         axiosWithAuth()
-        .post("/workouts/current/{username}", workout)
+        .post(`https://lifting-weights-java.herokuapp.com/workouts/current/${username}`, workout)
         .then(results => {
             console.log("IT DID post workout submission to endpoint '/workouts/current/{username}' correctly", results)
         })

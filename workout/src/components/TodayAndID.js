@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function Today () {
+function Today() {
 let today = new Date();
 var d = today.getDate();
 var dd = d.toString();
@@ -19,7 +19,7 @@ today = mm + '/' + dd + '/' + yy;
 
     return today;
 }
-function Id () {
+function Id() {
     var id = new Date();
     var d = id.getDate();
     var dd = d.toString();

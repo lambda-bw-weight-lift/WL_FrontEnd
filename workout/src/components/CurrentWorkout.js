@@ -16,7 +16,7 @@ export default function CurrentWorkout (props) {
 
     const getWorkout = () => {
         axiosWithAuth()
-            .get(`/workouts/{workoutid}`)
+            .get(`https://lifting-weights-java.herokuapp.com/workouts/${workoutid}`)
             .then(res => {
                 console.log('Get request successful in CurrentWorkout component', res.data)
                 setWorkout(res.data);
