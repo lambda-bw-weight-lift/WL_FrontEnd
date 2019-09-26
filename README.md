@@ -43,7 +43,7 @@ Examples of Tables
 
 User table {
 
-email<-- Optional
+email <-- Optional
 username <-- Required
 password <-- Required 
 
