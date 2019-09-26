@@ -13,7 +13,11 @@ import CurrentWorkout from "./components/CurrentWorkout";
 import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
 import { createBrowserHistory } from 'history';
+<<<<<<< HEAD
+import {Today, Weekday} from "./components/TodayAndID";
+=======
 import {Today, Weekday} from "./components/TodayAndID"
+>>>>>>> team-branch
 
 // Contexts 
 import {WorkoutContext} from "./contexts/WorkoutContext";
@@ -88,6 +92,14 @@ function App() {
           <MobileMenu newWorkoutTrigger={newWorkoutTrigger} ></MobileMenu>
         </AppNav>
         <Router history={history}>
+<<<<<<< HEAD
+        <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>
+        <Route path="/today" render={(props) => <CurrentWorkout {...props} workoutsArray={workoutsArray}/>  }/>
+        <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
+=======
         {/* <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} /> */}
         <Route path="/login" render={(props) => <Login setUser={setUser}/>} />
         <Route path="/signup" component={SignUp} />
@@ -99,6 +111,7 @@ function App() {
         <PrivateRoute component={CurrentWorkout} path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/>
         <PrivateRoute component={GetStarted} exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
         <PrivateRoute component={PreviousWorkout} path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
+>>>>>>> team-branch
         </Router>
       </div>
     </WorkoutContext.Provider>
