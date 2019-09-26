@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 import axios from 'axios';
+import { history } from '../App';
 
 
 
@@ -18,6 +19,15 @@ display: flex;
     margin-bottom: 7px;
    `;
 
+const MainContainer = styled.div`
+background: #fffefe;
+    width: 500px;
+    margin: auto;
+    box-shadow: 0px 1px 3px 0px #aaa;
+    height: 425px;
+    padding-top: 30px;
+    margin-top: 45px;
+`;
 const StyledButton = styled.button`
     background: #276fd6;
     border-radius: 5px;
@@ -36,7 +46,7 @@ const Section = styled.section`
 
 const inputStyles = {
     height: '30px',
-    border: '2px solid black',
+    border: '2px solid #1e90ff',
     borderRadius: '5px',
     padding: '5px'
 }
@@ -70,8 +80,6 @@ const newSignUp = {
 
 function SignUp(props) {
 
-    const [newLogin, setNewLogin] = useState([])
-
     const [error, setError] = useState('')
 
     const [loading, setLoading] = useState(false)
@@ -86,7 +94,7 @@ function SignUp(props) {
             .then((response) => {
                 console.log(response)
                 setLoading(false)
-                setNewLogin([...newLogin, response.date])
+                history.push('/login');
             })
             .catch((error) => {
                 // console.log(error.response)
@@ -106,11 +114,11 @@ function SignUp(props) {
     });
 
     return (
-        <div>
+        <MainContainer >
             <MyH1>SignUp</MyH1>
 
             {error && <div className='server-error'>{error}</div>}
-            
+
             <Formik
                 validationSchema={ValidationSchema}
                 initialValues={newSignUp}
@@ -138,13 +146,13 @@ function SignUp(props) {
                             </Div>
 
                             <Section>
-                                <StyledButton type='submit'>{loading?"Submitting":"Sign Up"}</StyledButton>
+                                <StyledButton type='submit'>{loading ? "Submitting" : "Sign Up"}</StyledButton>
                             </Section>
                         </Form>
                     )
                 }}
             />
-        </div>
+        </MainContainer>
     )
 }
 

@@ -4,13 +4,13 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useScrollTrigger } from '@material-ui/core';
-import {history} from '../App'
+import { history } from '../App'
 
 
 
 
 const Div = styled.div`
-display: flex;
+    display: flex;
     justify-content: center;
     margin: 30px;
     display: flex;
@@ -33,13 +33,13 @@ const StyledButton = styled.button`
   `;
 
 const Section = styled.section`
-width: 400px;
-margin: auto;
+    width: 400px;
+    margin: auto;
     padding-top: 15px;
 `;
 
 const Label = styled.label`
-  text-align: left;
+    text-align: left;
     margin-bottom: 5px;
     padding: 5px;
     `;
@@ -53,11 +53,20 @@ const errorStyles = {
 
 const inputStyles = {
     height: '30px',
-    border: '2px solid black',
+    border: '2px solid #1e90ff',
     borderRadius: '5px',
     padding: '5px'
 }
 
+const MainContainer = styled.div`
+    background: #fffefe;
+    width: 500px;
+    margin: auto;
+    box-shadow: 0px 1px 3px 0px #aaa;
+    height: 425px;
+    padding-top: 30px;
+    margin-top: 45px;
+`;
 
 const MyH1 = styled.h1`
     width: 400px;
@@ -87,14 +96,15 @@ function Login(props) {
         bodyData.set('grant_type', 'password');
 
         axios({
-          method: 'POST',
-          url: 'https://lifting-weights-java.herokuapp.com/login',
-          data: bodyData,
-    
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Basic ${btoa("pl,mkoijn:pl,mkoijn")}`
-          }})
+            method: 'POST',
+            url: 'https://lifting-weights-java.herokuapp.com/login',
+            data: bodyData,
+
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Authorization: `Basic ${btoa("pl,mkoijn:pl,mkoijn")}`
+            }
+        })
             .then((response) => {
                 setLoading(false)
                 localStorage.setItem('token', response.data.access_token);
@@ -108,17 +118,13 @@ function Login(props) {
 
 
     const ValidationSchema = Yup.object().shape({
-        username: Yup.string()
-            // .email("Email not valid")
-            .required("Username is required"),
-        password: Yup.string()
-            .min(8, "Password must be 8 characters or longer")
-            .required("Password is required")
+        username: Yup.string().required("Username is required"),
+        password: Yup.string().min(8, "Password must be 8 characters or longer").required("Password is required")
     });
 
 
     return (
-        <div>
+        <MainContainer>
             <MyH1>Login</MyH1>
             <Formik
                 validationSchema={ValidationSchema}
@@ -148,13 +154,13 @@ function Login(props) {
                             </Div>
 
                             <Section>
-                                <StyledButton type='submit'>{loading?"Submitting":"Login"}</StyledButton>
+                                <StyledButton type='submit'>{loading ? "Submitting" : "Login"}</StyledButton>
                             </Section>
                         </Form>
                     )
                 }}
             />
-        </div>
+        </MainContainer>
     )
 }
 

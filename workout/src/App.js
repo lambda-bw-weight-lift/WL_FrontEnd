@@ -13,7 +13,7 @@ import CurrentWorkout from "./components/CurrentWorkout";
 import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
 import { createBrowserHistory } from 'history';
-
+import {Today, Weekday} from "./components/TodayAndID";
 
 // Contexts 
 import {WorkoutContext} from "./contexts/WorkoutContext";
@@ -81,8 +81,8 @@ function App() {
         </AppNav>
         <Router history={history}>
         <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
-        <Route path="login" component={Login} />
-        <Route path="signup" component={SignUp} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
         <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>
         <Route path="/today" render={(props) => <CurrentWorkout {...props} workoutsArray={workoutsArray}/>  }/>
         <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
