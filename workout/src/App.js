@@ -14,11 +14,7 @@ import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
 import EditExercise from './components/EditExercise';
 import { createBrowserHistory } from 'history';
-<<<<<<< HEAD
 import {Today, Weekday} from "./components/TodayAndID";
-=======
-import {Today, Weekday} from "./components/TodayAndID"
->>>>>>> team-branch
 
 // Contexts 
 import {WorkoutContext} from "./contexts/WorkoutContext";
