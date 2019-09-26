@@ -25,7 +25,8 @@ import axiosWithAuth from "./utils/axiosWithAuth";
 export const history = createBrowserHistory();
 
 const AppNav = styled.nav`
-  background-color: dodgerblue;
+  background-color: #0069EB;
+  color: white;
   display:flex;
   justify-content: space-between;
   align-items: center;
@@ -90,7 +91,7 @@ function App() {
         <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
         <Route path="/login" render={(props) => <Login setUser={setUser}/>} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>
+        <Route path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/>
         <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} workoutsArray={workoutsArray}/>  }/>
         <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
         </Router>
