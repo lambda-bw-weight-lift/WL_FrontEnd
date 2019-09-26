@@ -1,4 +1,4 @@
-# DESIGN YOUR LIFE
+# LIFTING LOG
 
 ## Description
 
@@ -40,7 +40,7 @@ This project was created using yarn and designed for react client side. Other de
 ```
 
 Examples of Tables
-```
+
 User table {
 
 email<-- Optional
