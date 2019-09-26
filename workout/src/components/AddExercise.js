@@ -7,8 +7,8 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 import '../index.css';
 
 
-function AddExercise({ values, errors, touched, status }) {
-
+function AddExercise({history, values, errors, touched, status }) {
+    console.log("history",history)
 
     return (
         <>
@@ -69,26 +69,29 @@ const FormikAddExercise = withFormik({
             workoutid: workoutid || ""
         };
     },
-    handleSubmit(values, { setStatus, resetForm }) {
+    handleSubmit(values, { setStatus, props, resetForm }) {
         console.log(values);
-        const bodyData = new FormData();
-        bodyData.set("exercisename", values.exercisename);
-        bodyData.set("weightlifted", values.weightlifted);
-        bodyData.set("reps", values.reps);
-        bodyData.set("restperiod", values.restperiod);
-        bodyData.set("exerciseregion", values.exerciseregion);
-        bodyData.set("grant_type", "password");
+        console.log("props inside handle submit",props);
+        // const bodyData = new FormData();
+        // bodyData.set("exercisename", values.exercisename);
+        // bodyData.set("weightlifted", values.weightlifted);
+        // bodyData.set("reps", values.reps);
+        // bodyData.set("restperiod", values.restperiod);
+        // bodyData.set("exerciseregion", values.exerciseregion);
+        // bodyData.set("grant_type", "password");
         axiosWithAuth()
             // .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData, {
             //     headers: {
             //         Authorization: `Basic ${btoa("pl,mkoijn:pl,mkoijn")}`,
             //         'Content-Type': 'application/x-www-form-urlencoded',
             //     }
-            .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData)
+            // .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData)
+            .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, values)
             .then(results => {
                 console.log("result of post within handleSubmit in AddExercise.js", results)
                 setStatus(results.data);
                 resetForm();
+                props.history.push("/today")
             })
             .catch(error => {
                 console.log("error, did not post data correctly", error.response)
