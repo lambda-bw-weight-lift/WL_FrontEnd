@@ -58,16 +58,19 @@ function App() {
     // console.log(typeof(`${Today()}  ${Weekday()}`)
     const [trigger, setTrigger] = useState("")
     const [workout, setWorkout]= useState({"workoutname": `${Today()} - ${Weekday()}`, "workoutlength" : "" })
+    const [user, setUser] = useState({});
     // const [workout, setWorkout]= useState({"workoutname": "today **this needs to be replaced with code one line above***" })
     const newWorkoutTrigger = () => {
         setTrigger(trigger => trigger += "1")
     }
     useEffect(() => {
         
-        axiosWithAuth()
-        .post(`https://lifting-weights-java.herokuapp.com/workouts/current/${username}`, workout)
+        axiosWithAuth(user)
+        .post(`https://lifting-weights-java.herokuapp.com/workouts/current/${user.username}`, workout)
         .then(results => {
-            console.log("IT DID post workout submission to endpoint '/workouts/current/{username}' correctly", results)
+          setWorkout(results.data)
+          setUser(results.data.user)
+          console.log("IT DID post workout submission to endpoint '/workouts/current/{username}' correctly", results, workout)
         })
         .catch(error =>{
             console.log("error, did not post workout submission to endpoint '/workouts/current/{username}' correctly", error)
@@ -81,14 +84,14 @@ function App() {
           <Link to="/">
             <h1>Weight Lifting</h1>
           </Link>
-          <MobileMenu newWorkoutTrigger={newWorkoutTrigger}></MobileMenu>
+          <MobileMenu newWorkoutTrigger={newWorkoutTrigger} ></MobileMenu>
         </AppNav>
         <Router history={history}>
         <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
-        <Route path="login" component={Login} />
-        <Route path="signup" component={SignUp} />
+        <Route path="/login" render={(props) => <Login setUser={setUser}/>} />
+        <Route path="/signup" component={SignUp} />
         <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>
-        <Route path="/today" render={(props) => <CurrentWorkout {...props} workoutsArray={workoutsArray}/>  }/>
+        <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} workoutsArray={workoutsArray}/>  }/>
         <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
         </Router>
         {/* <PrivateRoute path="/today" render={(props) => <CurrentWorkout {...props} />  }/>

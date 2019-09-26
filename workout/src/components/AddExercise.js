@@ -69,7 +69,7 @@ const FormikAddExercise= withFormik({
     },
     handleSubmit(values) {
         axiosWithAuth()
-            .post(`/workouts/${workoutid}`, values)
+            .post(`/workouts/14`, values)
         .then(results => {
             console.log("result of post within handleSubmit in AddExercise.js",results)
         })
