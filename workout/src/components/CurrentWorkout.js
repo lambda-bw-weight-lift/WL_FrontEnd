@@ -11,21 +11,20 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 
 
 export default function CurrentWorkout (props) {
-
     const [workout, setWorkout] = useState([]);
-
-    const getWorkout = () => {
-        axiosWithAuth()
-            .get(`https://lifting-weights-java.herokuapp.com/workouts/${workoutid}`)
-            .then(res => {
-                console.log('Get request successful in CurrentWorkout component', res.data)
-                setWorkout(res.data);
-            })
-            .catch(err => console.log('Get request in CurrentWorkout failed b/c ', err.response))
-    }
+    const workoutid = props.workout.workoutid;
 
     useEffect(() => {
-        getWorkout();
+        if (workoutid) {
+            axiosWithAuth()
+                .get(`https://lifting-weights-java.herokuapp.com/workouts/${workoutid}`)
+                .then(res => {
+                    // console.log('Get request successful in CurrentWorkout component', res.data)
+                    // console.log("workoutid at the bottom", workoutid)
+                    // setWorkout(res.data);
+                })
+                .catch(err => console.log('Get request in CurrentWorkout failed b/c ', err.response))
+        }
     }, [])
     
     // const { workoutsArray } = useContext(WorkoutContext); 
