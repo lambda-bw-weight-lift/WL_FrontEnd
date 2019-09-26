@@ -29,7 +29,6 @@ const StyledButton = styled.button`
     padding: 0.25em 1em;
     height: 40px;
     width: 100%;
-
   `;
 
 const Section = styled.section`
