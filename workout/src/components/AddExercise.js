@@ -36,9 +36,9 @@ function AddExercise({ values, errors, touched, status }) {
                         <option value="upperBody">Upper Body</option>
                     </Field>
                 </label>
-                <Link to="/today">
+                {/* <Link to="/today"> */}
                     <button className="form button" type="submit">Submit Exercise</button>
-                </Link>
+                {/* </Link> */}
 
             </Form>
             <div>
@@ -54,21 +54,22 @@ function AddExercise({ values, errors, touched, status }) {
 
 const FormikAddExercise = withFormik({
     validationSchema: Yup.object().shape({
-        exercise: Yup.string().required("Exercise name required."),
-        weight: Yup.string().required("Enter 0 if body-weight exercise."),
-        sets: Yup.string().required("Number of sets/reps required"),
-        restPeriod: Yup.string().required("If no rest enter 0")
+        exercisename: Yup.string().required("Exercise name required."),
+        weightlifted: Yup.string().required("Enter 0 if body-weight exercise."),
+        reps: Yup.string().required("Number of sets/reps required"),
+        restperiod: Yup.string().required("If no rest enter 0")
     }),
-    mapPropsToValues({ exercisename, weightlifted, reps, restperiod, exerciseregion }) {
+    mapPropsToValues({ exercisename, weightlifted, reps, restperiod, exerciseregion, workoutid }) {
         return {
             exercisename: exercisename || "",
             weightlifted: weightlifted || "",
             reps: reps || "",
             restperiod: restperiod || "",
-            exerciseregion: exerciseregion || ""
+            exerciseregion: exerciseregion || "",
+            workoutid: workoutid || ""
         };
     },
-    handleSubmit(values, { setStatus, resetForm, workoutid }) {
+    handleSubmit(values, { setStatus, resetForm }) {
         console.log(values);
         const bodyData = new FormData();
         bodyData.set("exercisename", values.exercisename);
@@ -78,12 +79,12 @@ const FormikAddExercise = withFormik({
         bodyData.set("exerciseregion", values.exerciseregion);
         bodyData.set("grant_type", "password");
         axiosWithAuth()
-            .post(`https://lifting-weights-java.herokuapp.com/workouts/${workoutid}`, bodyData, {
-                headers: {
-                    Authorization: `Basic ${btoa("pl,mkoijn:pl,mkoijn")}`,
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                }
-            })
+            // .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData, {
+            //     headers: {
+            //         Authorization: `Basic ${btoa("pl,mkoijn:pl,mkoijn")}`,
+            //         'Content-Type': 'application/x-www-form-urlencoded',
+            //     }
+            .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData)
             .then(results => {
                 console.log("result of post within handleSubmit in AddExercise.js", results)
                 setStatus(results.data);
