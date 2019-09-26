@@ -29,14 +29,14 @@ export default function CurrentWorkoutCard (props) {
     return(
         <StyledDiv>
             <header className="card-header">
-                <h3>{props.exercise.exercise}</h3>
+                <h3>{props.exercise.exercisename}</h3>
             </header>
-            <body>
-                <p>{props.exercise.sets}</p>
-                <p>{props.exercise.exerciseRegion}</p>
-                <p>{props.exercise.restPeriod}</p>
-                <p>{props.exercise.weight}</p>
-            </body>
+            <div>
+                <p>{props.exercise.reps}</p>
+                <p>{props.exercise.exerciseregion}</p>
+                <p>{props.exercise.restperiod}</p>
+                <p>{props.exercise.weightlifted}</p>
+            </div>
         </StyledDiv>
     );
 }

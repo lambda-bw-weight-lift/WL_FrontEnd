@@ -7,8 +7,8 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 import '../index.css';
 
 
-function AddExercise({history, values, errors, touched, status }) {
-    console.log("history",history)
+function AddExercise({values, errors, touched, status }) {
+    
 
     return (
         <>

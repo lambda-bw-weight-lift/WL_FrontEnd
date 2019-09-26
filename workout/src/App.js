@@ -88,16 +88,18 @@ function App() {
           <MobileMenu newWorkoutTrigger={newWorkoutTrigger} ></MobileMenu>
         </AppNav>
         <Router history={history}>
-        <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
+        {/* <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} /> */}
         <Route path="/login" render={(props) => <Login setUser={setUser}/>} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/>
-        <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} workoutsArray={workoutsArray}/>  }/>
-        <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
+        {/* <Route path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/> */}
+        {/* <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/> */}
+        {/* <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/> */}
+
+        <PrivateRoute component={AddExercise} path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/>
+        <PrivateRoute component={CurrentWorkout} path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/>
+        <PrivateRoute component={GetStarted} exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
+        <PrivateRoute component={PreviousWorkout} path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
         </Router>
-        {/* <PrivateRoute path="/today" render={(props) => <CurrentWorkout {...props} />  }/>
-        <PrivateRoute path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
-        <PrivateRoute path="/add-exercise" render={(props) => <AddExercise {...props} />  }/> */}
       </div>
     </WorkoutContext.Provider>
   );
