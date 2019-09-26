@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useScrollTrigger } from '@material-ui/core';
 import {history} from '../App'
-import { setTimeout } from 'core-js';
 
 
 
@@ -30,7 +29,6 @@ const StyledButton = styled.button`
     padding: 0.25em 1em;
     height: 40px;
     width: 100%;
-
   `;
 
 const Section = styled.section`
@@ -99,6 +97,8 @@ function Login(props) {
             .then((response) => {
                 setLoading(false)
                 localStorage.setItem('token', response.data.access_token);
+                console.log("Response in Login axios POST call", response);
+                props.setUser({"username": values.username});
                 history.push('/');
             })
             .catch((error) => {

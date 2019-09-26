@@ -16,7 +16,6 @@ const StyledSection = styled.section`
     background-color:aliceblue;
     padding: 16px 16px 16px 16px;
     box-shadow: 0 0 2px 1px rgba(0,0,0,0.03), 0 6px 10px 2px rgba(0,0,0,0.08);
-
     .svg{
         width:32px;
         height:32px;

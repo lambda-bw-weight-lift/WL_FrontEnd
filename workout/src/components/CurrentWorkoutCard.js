@@ -22,7 +22,6 @@ const StyledDiv=styled.div`
         justify-content: space-evenly;
         flex-wrap:wrap;
     }
-
 `;
 
 export default function CurrentWorkoutCard (props) {
