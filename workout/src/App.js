@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Route, Link, Router} from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Route, Link, Router } from "react-router-dom";
 import './App.css';
 import styled from "styled-components";
 
@@ -14,14 +14,10 @@ import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
 import EditExercise from './components/EditExercise';
 import { createBrowserHistory } from 'history';
-<<<<<<< HEAD
-import {Today, Weekday} from "./components/TodayAndID";
-=======
-import {Today, Weekday} from "./components/TodayAndID"
->>>>>>> team-branch
+import { Today, Weekday } from "./components/TodayAndID";
 
 // Contexts 
-import {WorkoutContext} from "./contexts/WorkoutContext";
+import { WorkoutContext } from "./contexts/WorkoutContext";
 
 // Adding private route and axiosWithAuth, which must be used for components that require the user to be log-in 
 import PrivateRoute from "./components/PrivateRoute";
@@ -52,39 +48,39 @@ function App() {
         setWorkoutsArray(res.data);
       })
       .catch(err => console.log("Get request failed b/c ", err.response));
-    }
+  }
 
-    useEffect(() => {
-      getWorkouts();
-    }, []);
+  useEffect(() => {
+    getWorkouts();
+  }, []);
 
-    // THIS IS THE CREATION OF THE NEW WORKOUT LANDING ZONE TO WHICH EXERCISES CAN BE ADDED
-    console.log(typeof(Today()))
-    console.log(typeof(Weekday()))
-    // console.log(typeof(`${Today()}  ${Weekday()}`)
-    const [trigger, setTrigger] = useState("")
-    const [workout, setWorkout]= useState({"workoutname": `${Today()} - ${Weekday()}`, "workoutlength" : "" })
-    const [user, setUser] = useState({});
-    // const [workout, setWorkout]= useState({"workoutname": "today **this needs to be replaced with code one line above***" })
-    const newWorkoutTrigger = () => {
-        setTrigger(trigger => trigger += "1")
-    }
-    useEffect(() => {
-        
-        axiosWithAuth(user)
-        .post(`https://lifting-weights-java.herokuapp.com/workouts/current/${user.username}`, workout)
-        .then(results => {
-          setWorkout(results.data)
-          setUser(results.data.user)
-          console.log("IT DID post workout submission to endpoint '/workouts/current/{username}' correctly", results, workout)
-        })
-        .catch(error =>{
-            console.log("error, did not post workout submission to endpoint '/workouts/current/{username}' correctly", error)
-        })        
-    }, [trigger])
-      // THIS IS THE USE STATE WHERE THE EXERCISE ID IS BEING KEPT --> IT IS BEING GENERATED IN ADD EXERCISE LINE93
-      const[exerciseid, setExerciseid]= useState("'nope, just an empty string'")
-      console.log("addExercise.js passed up reults to app.js correctly?", exerciseid)
+  // THIS IS THE CREATION OF THE NEW WORKOUT LANDING ZONE TO WHICH EXERCISES CAN BE ADDED
+  console.log(typeof (Today()))
+  console.log(typeof (Weekday()))
+  // console.log(typeof(`${Today()}  ${Weekday()}`)
+  const [trigger, setTrigger] = useState("")
+  const [workout, setWorkout] = useState({ "workoutname": `${Today()} - ${Weekday()}`, "workoutlength": "" })
+  const [user, setUser] = useState({});
+  // const [workout, setWorkout]= useState({"workoutname": "today **this needs to be replaced with code one line above***" })
+  const newWorkoutTrigger = () => {
+    setTrigger(trigger => trigger += "1")
+  }
+  useEffect(() => {
+
+    axiosWithAuth(user)
+      .post(`https://lifting-weights-java.herokuapp.com/workouts/current/${user.username}`, workout)
+      .then(results => {
+        setWorkout(results.data)
+        setUser(results.data.user)
+        console.log("IT DID post workout submission to endpoint '/workouts/current/{username}' correctly", results, workout)
+      })
+      .catch(error => {
+        console.log("error, did not post workout submission to endpoint '/workouts/current/{username}' correctly", error)
+      })
+  }, [trigger])
+  // THIS IS THE USE STATE WHERE THE EXERCISE ID IS BEING KEPT --> IT should be Set IN ADD EXERCISE LINE93
+  // const [exerciseid, setExerciseid] = useState("'nope, just an empty string'")
+  // console.log("addExercise.js passed up reults to app.js correctly?", exerciseid)
   return (
     <WorkoutContext.Provider value={{ workoutsArray }}>
       <div className="App">
@@ -95,35 +91,21 @@ function App() {
           <MobileMenu newWorkoutTrigger={newWorkoutTrigger} ></MobileMenu>
         </AppNav>
         <Router history={history}>
-<<<<<<< HEAD
-        <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
-=======
-<<<<<<< HEAD
-        <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>
-        <Route path="/today" render={(props) => <CurrentWorkout {...props} workoutsArray={workoutsArray}/>  }/>
-        <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
-=======
-        {/* <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} /> */}
->>>>>>> 376e781ce16248fc53cb084ccfb5e229bddb32cc
-        <Route path="/login" render={(props) => <Login setUser={setUser}/>} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/add-exercise" render={(props) => <AddExercise {...props} setExerciseid={setExerciseid} workoutid={workout.workoutid} />  }/>
-        <Route path="/edit-exercise" render={(props) => <EditExercise {...props} exerciseid={exerciseid.data.exerciseid}/>  }/>
-        <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/>
-        <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
 
-        {/* <PrivateRoute component={AddExercise} path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/>
+          <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger} />} />
+
+          <Route path="/login" render={(props) => <Login setUser={setUser} />} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/add-exercise" render={(props) => <AddExercise {...props}  workoutid={workout.workoutid} />} />
+          {/* <Route path="/add-exercise" render={(props) => <AddExercise {...props} setExerciseid={setExerciseid} workoutid={workout.workoutid} />} /> */}
+          {/* <Route path="/edit-exercise" render={(props) => <EditExercise {...props} exerciseid={exerciseid.data.exerciseid} />} /> */}
+          <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />} />
+          <Route path="/history" render={(props) => <PreviousWorkout {...props} />} />
+
+          {/* <PrivateRoute component={AddExercise} path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/>
         <PrivateRoute component={CurrentWorkout} path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/>
         <PrivateRoute component={GetStarted} exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
-<<<<<<< HEAD
-        <PrivateRoute component={PreviousWorkout} path="/history" render={(props) => <PreviousWorkout {...props} />  }/> */}
-=======
-        <PrivateRoute component={PreviousWorkout} path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
->>>>>>> team-branch
->>>>>>> 376e781ce16248fc53cb084ccfb5e229bddb32cc
+        // <PrivateRoute component={PreviousWorkout} path="/history" render={(props) => <PreviousWorkout {...props} />  }/>*/}
         </Router>
       </div>
     </WorkoutContext.Provider>

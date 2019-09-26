@@ -69,7 +69,7 @@ const FormikAddExercise = withFormik({
             workoutid: workoutid || ""
         };
     },
-    handleSubmit(values, setExerciseid, { setStatus, props, resetForm }) {
+    handleSubmit(values, { setStatus, props, resetForm }) {
         console.log(values);
         console.log("props inside handle submit",props);
         // const bodyData = new FormData();
@@ -91,7 +91,7 @@ const FormikAddExercise = withFormik({
                 console.log("result of post within handleSubmit in AddExercise.js", results)
                 setStatus(results.data);
                 resetForm();
-                setExerciseid(results)
+                // setExerciseid(results)
                 props.history.push("/today")
             })
             .catch(error => {
