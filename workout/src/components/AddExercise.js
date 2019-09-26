@@ -8,7 +8,17 @@ import '../index.css';
 
 
 function AddExercise ({values, errors, touched, status}) {
-   
+    useEffect(() => {
+        axiosWithAuth()
+        .post(`/workouts/${workoutid}`, values)
+        .then(results => {
+            console.log("result of post within handleSubmit in AddExercise.js",results)
+        })
+        .catch(error =>{
+            console.log("error, did not post data correctly", error)
+        })
+        console.log("looking for values",values) 
+    }, [status])
    
     return(
         <>   
@@ -67,16 +77,8 @@ const FormikAddExercise= withFormik({
             exerciseRegion: exerciseRegion||""
         };
     },
-    handleSubmit(values) {
-        axiosWithAuth()
-            .post(`/workouts/14`, values)
-        .then(results => {
-            console.log("result of post within handleSubmit in AddExercise.js",results)
-        })
-        .catch(error =>{
-            console.log("error, did not post data correctly", error)
-        })
-        console.log("looking for values",values)  
+    handleSubmit(values, { setStatus }) {
+         setStatus(values)
     }
 })(AddExercise);
 
