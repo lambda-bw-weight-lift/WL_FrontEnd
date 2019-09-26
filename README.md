@@ -79,7 +79,7 @@ https://url.com/history
 - email: daniel.wallen1987@gmail.com
 
 ## Authors and acknowledgment
-This project was made by Nathaniel Mosco, Nathan Melby, and Daniel Wallen
+This project was made by Nathaniel Mosco, Damilola Olawumi, Nathan Melby, and Daniel Wallen
 
 ## Project status
 This project may require some modifications in the future. If there are any issues, note the support section above.   
