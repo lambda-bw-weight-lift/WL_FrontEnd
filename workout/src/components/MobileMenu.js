@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { Link } from "react-router-dom";
+import {history} from '../App'
 
 const useStyles = makeStyles({
   list: {
@@ -36,6 +37,17 @@ export default function MobileMenu(props) {
 
     setState({ ...state, [side]: open });
   };
+// created a function to redirect to signup when clicked
+  const redirectToSignUp = (e) => {
+    e.preventDefault();
+    history.push('/signup')
+  }
+
+  //created a function to rediret to login when clicked
+  const redirectToLogin = (e) => {
+    e.preventDefault();
+    history.push('/login')
+  }
 
   const sideList = side => (
     <div
@@ -45,6 +57,19 @@ export default function MobileMenu(props) {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
+          <ListItem button onClick={redirectToSignUp}>
+            <ListItemIcon> <i class="material-icons">verified_user</i> </ListItemIcon>
+            <ListItemText primary="Signup" />
+          </ListItem>
+    
+
+        
+          <ListItem button onClick={redirectToLogin} >
+            <ListItemIcon> <i class="material-icons">launch</i> </ListItemIcon>
+            <ListItemText primary="Login" />
+          </ListItem>
+        
+
         <Link to="/today">
           <ListItem button onClick={props.newWorkoutTrigger}>
             <ListItemIcon> <i className="material-icons">create</i> </ListItemIcon>

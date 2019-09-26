@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"
 import styled from "styled-components";
 import { withFormik, Form, Field, ErrorMessage, } from "formik"
 import * as Yup from "yup";
@@ -7,7 +6,7 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 import '../index.css';
 
 
-function AddExercise({values, errors, touched, status }) {
+function EditExercise({values, errors, touched, status }) {
     
 
     return (
@@ -52,25 +51,25 @@ function AddExercise({values, errors, touched, status }) {
     );
 }
 
-const FormikAddExercise = withFormik({
+const FormikEditExercise = withFormik({
     validationSchema: Yup.object().shape({
         exercisename: Yup.string().required("Exercise name required."),
         weightlifted: Yup.string().required("Enter 0 if body-weight exercise."),
         reps: Yup.string().required("Number of sets/reps required"),
         restperiod: Yup.string().required("If no rest enter 0")
     }),
-    mapPropsToValues({ exercisename, weightlifted, reps, restperiod, exerciseregion, workoutid }) {
+    mapPropsToValues({ exercisename, weightlifted, reps, restperiod, exerciseregion, exerciseid }) {
         return {
             exercisename: exercisename || "",
             weightlifted: weightlifted || "",
             reps: reps || "",
             restperiod: restperiod || "",
             exerciseregion: exerciseregion || "",
-            workoutid: workoutid || ""
+            exerciseid: exerciseid || ""
         };
     },
-    handleSubmit(values, setExerciseid, { setStatus, props, resetForm }) {
-        console.log(values);
+    handleSubmit(values, { setStatus, props, resetForm }) {
+        console.log("editExercise values",values);
         console.log("props inside handle submit",props);
         // const bodyData = new FormData();
         // bodyData.set("exercisename", values.exercisename);
@@ -86,12 +85,11 @@ const FormikAddExercise = withFormik({
             //         'Content-Type': 'application/x-www-form-urlencoded',
             //     }
             // .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData)
-            .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, values)
+            .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.exerciseid}`, values)
             .then(results => {
-                console.log("result of post within handleSubmit in AddExercise.js", results)
+                console.log("result of post within handleSubmit in EditExercise.js", results)
                 setStatus(results.data);
                 resetForm();
-                setExerciseid(results)
                 props.history.push("/today")
             })
             .catch(error => {
@@ -100,8 +98,8 @@ const FormikAddExercise = withFormik({
         console.log("looking for values", values)
 
     }
-})(AddExercise);
+})(EditExercise);
 
-console.log("This is the Data", FormikAddExercise)
+console.log("This is the Data", FormikEditExercise)
 
-export default FormikAddExercise;
+export default FormikEditExercise;
