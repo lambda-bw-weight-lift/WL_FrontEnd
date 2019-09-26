@@ -29,17 +29,19 @@ export default function CurrentWorkout (props) {
     }, [])
  
     return(
-        <div>
-            <h3>{Today()} - {Weekday()}</h3>
+        <Link to="/add-exercise">
             <div>
-                {workout.map(exercise => <CurrentWorkoutCard key={exercise.exerciseid} exercise={exercise}/>)}
+                <h3>{Today()} - {Weekday()}</h3>
+                <div>
+                    {workout.map(exercise => <CurrentWorkoutCard key={exercise.exerciseid} exercise={exercise}/>)}
+                </div>
+                <Link to="/add-exercise">
+                    <SecondaryBtn>Add Exercise</SecondaryBtn>
+                </Link>
+                <Link to="/history">
+                    <PrimaryBtn>Submit Workout</PrimaryBtn>
+                </Link>
             </div>
-            <Link to="/add-exercise">
-                <SecondaryBtn>Add Exercise</SecondaryBtn>
-            </Link>
-            <Link to="/history">
-                <PrimaryBtn>Submit Workout</PrimaryBtn>
-            </Link>
-        </div>
+        </Link>
     );  
 }

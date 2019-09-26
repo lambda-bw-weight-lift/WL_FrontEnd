@@ -12,6 +12,7 @@ import PreviousWorkout from "./components/PreviousWorkout";
 import CurrentWorkout from "./components/CurrentWorkout";
 import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
+import EditExercise from './components/EditExercise';
 import { createBrowserHistory } from 'history';
 import {Today, Weekday} from "./components/TodayAndID"
 
@@ -77,7 +78,9 @@ function App() {
             console.log("error, did not post workout submission to endpoint '/workouts/current/{username}' correctly", error)
         })        
     }, [trigger])
-
+      // THIS IS THE USE STATE WHERE THE EXERCISE ID IS BEING KEPT --> IT IS BEING GENERATED IN ADD EXERCISE LINE93
+      const[exerciseid, setExerciseid]= useState("'nope, just an empty string'")
+      console.log("addExercise.js passed up reults to app.js correctly?", exerciseid)
   return (
     <WorkoutContext.Provider value={{ workoutsArray }}>
       <div className="App">
@@ -88,17 +91,18 @@ function App() {
           <MobileMenu newWorkoutTrigger={newWorkoutTrigger} ></MobileMenu>
         </AppNav>
         <Router history={history}>
-        {/* <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} /> */}
+        <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
         <Route path="/login" render={(props) => <Login setUser={setUser}/>} />
         <Route path="/signup" component={SignUp} />
-        {/* <Route path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/> */}
-        {/* <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/> */}
-        {/* <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/> */}
+        <Route path="/add-exercise" render={(props) => <AddExercise {...props} setExerciseid={setExerciseid} workoutid={workout.workoutid} />  }/>
+        <Route path="/edit-exercise" render={(props) => <EditExercise {...props} exerciseid={exerciseid.data.exerciseid}/>  }/>
+        <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/>
+        <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
 
-        <PrivateRoute component={AddExercise} path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/>
+        {/* <PrivateRoute component={AddExercise} path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/>
         <PrivateRoute component={CurrentWorkout} path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/>
         <PrivateRoute component={GetStarted} exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
-        <PrivateRoute component={PreviousWorkout} path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
+        <PrivateRoute component={PreviousWorkout} path="/history" render={(props) => <PreviousWorkout {...props} />  }/> */}
         </Router>
       </div>
     </WorkoutContext.Provider>
