@@ -90,7 +90,7 @@ function App() {
         <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
         <Route path="/login" render={(props) => <Login setUser={setUser}/>} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/add-exercise" render={(props) => <AddExercise {...props} />  }/>
+        <Route path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/>
         <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} workoutsArray={workoutsArray}/>  }/>
         <Route path="/history" render={(props) => <PreviousWorkout {...props} />  }/>
         </Router>
