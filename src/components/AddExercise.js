@@ -7,7 +7,7 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 import '../index.css';
 
 
-function AddExercise({values, errors, touched, status }) {
+function AddExercise({values, errors, touched, status, history }) {
     
 
     return (
