@@ -85,7 +85,7 @@ const FormikEditExercise = withFormik({
             //         'Content-Type': 'application/x-www-form-urlencoded',
             //     }
             // .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData)
-            .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.exerciseid}`, values)
+            .put(`https://lifting-weights-java.herokuapp.com/exercise/${values.exerciseid}`, values)
             .then(results => {
                 console.log("result of post within handleSubmit in EditExercise.js", results)
                 setStatus(results.data);
