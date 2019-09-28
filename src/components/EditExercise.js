@@ -5,27 +5,72 @@ import * as Yup from "yup";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import '../index.css';
 
+const newBlankExercise = {
+    exercisename: "",
+    weightlifted: "",
+    reps: "",
+    restperiod: "",
+    exerciseregion: ""
+}
 
-function EditExercise({values, errors, touched, status }) {
-    
+
+function EditExercise(props) {
+
+    const [editExercise, setEditExercise] = useState(newBlankExercise);
+
+    // axiosWithAuth()
+    // .get(`https://lifting-weights-java.herokuapp.com/exercise/${props.exerciseid}`)
+    // .then(results => {
+    //     // console.log("result of post within handleSubmit in EditExercise.js", results)
+    //     // props.history.push("/today")
+    //     form=(results);
+    // })
+    // .catch(error => {
+    //     console.log("error, did not post data correctly inside handlesubmit in EditExercise.js", error.response)
+    // })
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log("handle submit inside edit exercise is called");
+        // console.log("value of props.exerciseid in edit exercise handlesubmit", props.exerciseid )
+        // console.log("value of props.exerciseid.exerciseid in edit exercise handlesubmit", props.exerciseid.exerciseid)
+        axiosWithAuth()
+            .put(`https://lifting-weights-java.herokuapp.com/exercise/${props.exerciseid.data.exerciseid}`, editExercise)
+            .then(results => {
+                console.log("result of post within handleSubmit in EditExercise.js", results)
+                props.history.push("/today")
+                setEditExercise(newBlankExercise);
+            })
+            .catch(error => {
+                console.log("error, did not post data correctly inside handlesubmit in EditExercise.js", error.response)
+            })
+    }
+
+    const handleChange = event => {
+        console.log("handle change inside edit exercise is called");
+        setEditExercise({...editExercise, [event.target.name]: event.target.value})
+        console.log('handle change in edit exercise w/ new values', editExercise)
+    }
 
     return (
         <>
-            <Form className="form" autoComplete="on">
+            <form className="form" onSubmit={handleSubmit} autoComplete="on">
                 <label htmlFor="exercisename">Enter Exercise Name:</label>
-                <Field className="form field" id="exercisename" type="text" name="exercisename" placeholder="Squats" />
+                <input className="form-field" id="exercisename" type="text" name="exercisename" placeholder="Squats" onChange={handleChange} value={editExercise.exercisename} />
+
                 <label htmlFor="weightlifted">Enter Exercise Weight:</label>
-                <Field className="form field" id="weightlifted" type="text" name="weightlifted" placeholder="Enter amount in lbs/kg" />
+                <input className="form-field" id="weightlifted" type="text" name="weightlifted" placeholder="Enter amount in lbs/kg" onChange={handleChange} value={editExercise.weightlifted}/>
+
                 <label htmlFor="reps">Enter Sets X Reps</label>
-                <Field className="form field" id="reps" type="text" name="reps" placeholder="Sets X Reps" />
+                <input className="form-field" id="reps" type="text" name="reps" placeholder="Sets X Reps" onChange={handleChange} value={editExercise.reps}/>
+
                 <label htmlFor="restperiod">Enter Rest Time</label>
-                <Field className="form field" id="restperiod" type="text" name="restperiod" placeholder="Enter rest time" />
+                <input className="form-field" id="restperiod" type="text" name="restperiod" placeholder="Enter rest time" onChange={handleChange} value={editExercise.restperiod}/>
 
                 {/* <label htmlFor="exerciseRegion">Target Muscle Group:</label>
                 <Field className="form field" id="exerciseRegion" type="text" name="exerciseRegion" placeholder="Ex: Legs/Arms/Triceps"/> */}
                 <label>
                     Select Target Muscle Group:
-                    <Field component="select" name="exerciseregion">
+                    <select name="exerciseregion" onChange={handleChange} value={editExercise.exerciseregion}>
                         <option value="default">Pick A Group</option>
                         <option value="aerobic">Aerobic</option>
                         <option value="arms">Arms</option>
@@ -33,73 +78,18 @@ function EditExercise({values, errors, touched, status }) {
                         <option value="legs">Legs</option>
                         <option value="stretches">Stretches</option>
                         <option value="upperBody">Upper Body</option>
-                    </Field>
+                    </select>
                 </label>
                 {/* <Link to="/today"> */}
-                    <button className="form button" type="submit">Submit Exercise</button>
+                <button className="form button" type="submit" >Update Exercise</button>
                 {/* </Link> */}
 
-            </Form>
-            <div>
-                {touched.exercisename && errors.exercisename && (<p className="error">{errors.exercisename}</p>)}
-                {touched.weightlifted && errors.weightlifted && (<p className="error">{errors.weightlifted}</p>)}
-                {touched.reps && errors.reps && (<p className="error">{errors.reps}</p>)}
-                {touched.restperiod && errors.restperiod && (<p className="error">{errors.restperiod}</p>)}
-                {touched.exerciseregion && errors.exerciseregion && (<p className="error">{errors.exerciseregion}</p>)}
-            </div>
+            </form>
         </>
-    );
+    )
 }
 
-const FormikEditExercise = withFormik({
-    validationSchema: Yup.object().shape({
-        exercisename: Yup.string().required("Exercise name required."),
-        weightlifted: Yup.string().required("Enter 0 if body-weight exercise."),
-        reps: Yup.string().required("Number of sets/reps required"),
-        restperiod: Yup.string().required("If no rest enter 0")
-    }),
-    mapPropsToValues({ exercisename, weightlifted, reps, restperiod, exerciseregion, exerciseid }) {
-        return {
-            exercisename: exercisename || "",
-            weightlifted: weightlifted || "",
-            reps: reps || "",
-            restperiod: restperiod || "",
-            exerciseregion: exerciseregion || "",
-            exerciseid: exerciseid || ""
-        };
-    },
-    handleSubmit(values, { setStatus, props, resetForm }) {
-        console.log("editExercise values",values);
-        console.log("props inside handle submit",props);
-        // const bodyData = new FormData();
-        // bodyData.set("exercisename", values.exercisename);
-        // bodyData.set("weightlifted", values.weightlifted);
-        // bodyData.set("reps", values.reps);
-        // bodyData.set("restperiod", values.restperiod);
-        // bodyData.set("exerciseregion", values.exerciseregion);
-        // bodyData.set("grant_type", "password");
-        axiosWithAuth()
-            // .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData, {
-            //     headers: {
-            //         Authorization: `Basic ${btoa("pl,mkoijn:pl,mkoijn")}`,
-            //         'Content-Type': 'application/x-www-form-urlencoded',
-            //     }
-            // .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData)
-            .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.exerciseid}`, values)
-            .then(results => {
-                console.log("result of post within handleSubmit in EditExercise.js", results)
-                setStatus(results.data);
-                resetForm();
-                props.history.push("/today")
-            })
-            .catch(error => {
-                console.log("error, did not post data correctly", error.response)
-            })
-        console.log("looking for values", values)
 
-    }
-})(EditExercise);
 
-console.log("This is the Data", FormikEditExercise)
 
-export default FormikEditExercise;
+export default EditExercise;

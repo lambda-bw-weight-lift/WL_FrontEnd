@@ -79,8 +79,13 @@ function App() {
       })
   }, [trigger])
   // THIS IS THE USE STATE WHERE THE EXERCISE ID IS BEING KEPT --> IT should be Set IN ADD EXERCISE LINE93
-  // const [exerciseid, setExerciseid] = useState("'nope, just an empty string'")
-  // console.log("addExercise.js passed up reults to app.js correctly?", exerciseid)
+  const [exerciseid, setExerciseid] = useState(0)
+  
+ 
+  const idConsoleCheck = ()=> (exerciseid)? console.log("addExercise.js passed up reults to app.js correctly?", exerciseid) : console.log("the exerciseid was never set")
+  idConsoleCheck()
+  
+
   return (
     <WorkoutContext.Provider value={{ workoutsArray }}>
       <div className="App">
@@ -96,9 +101,10 @@ function App() {
 
           <Route path="/login" render={(props) => <Login setUser={setUser} />} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/add-exercise" render={(props) => <AddExercise {...props}  workoutid={workout.workoutid} />} />
-          {/* <Route path="/add-exercise" render={(props) => <AddExercise {...props} setExerciseid={setExerciseid} workoutid={workout.workoutid} />} /> */}
-          {/* <Route path="/edit-exercise" render={(props) => <EditExercise {...props} exerciseid={exerciseid.data.exerciseid} />} /> */}
+          {/* <Route path="/add-exercise" render={(props) => <AddExercise {...props}  workoutid={workout.workoutid} />} /> */}
+          <Route path="/add-exercise" render={(props) => <AddExercise {...props} setExerciseid={setExerciseid} workoutid={workout.workoutid} />} />
+          {/* {addRoute} */}
+          <Route path="/edit-exercise" render={(props) => <EditExercise {...props} exerciseid={exerciseid} />} />
           <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />} />
           <Route path="/history" render={(props) => <PreviousWorkout {...props} />} />
 

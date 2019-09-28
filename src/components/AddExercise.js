@@ -89,10 +89,10 @@ const FormikAddExercise = withFormik({
             .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, values)
             .then(results => {
                 console.log("result of post within handleSubmit in AddExercise.js", results)
-                setStatus(results.data);
+                // setStatus(results.data);
                 resetForm();
-                // setExerciseid(results)
                 props.history.push("/today")
+                props.setExerciseid(results)
             })
             .catch(error => {
                 console.log("error, did not post data correctly", error.response)
