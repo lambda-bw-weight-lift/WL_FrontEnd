@@ -91,7 +91,7 @@ const FormikAddExercise = withFormik({
                 console.log("result of post within handleSubmit in AddExercise.js", results)
                 setStatus(results.data);
                 resetForm();
-                // setExerciseid(results)
+                props.match.setExerciseid(results)
                 props.history.push("/today")
             })
             .catch(error => {
