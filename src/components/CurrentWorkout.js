@@ -29,12 +29,14 @@ export default function CurrentWorkout (props) {
     }, [])
  
     return(
-        <Link to="/add-exercise">
             <div>
                 <h3>{Today()} - {Weekday()}</h3>
-                <div>
-                    {workout.map(exercise => <CurrentWorkoutCard key={exercise.exerciseid} exercise={exercise}/>)}
-                </div>
+                    <div>
+                        {workout.map(exercise => <CurrentWorkoutCard key={exercise.exerciseid} exercise={exercise}/>)}
+                        <Link to="/edit-exercise">
+                            <button>Click Here To Edit This Workout</button>
+                        </Link>
+                    </div>
                 <Link to="/add-exercise">
                     <SecondaryBtn>Add Exercise</SecondaryBtn>
                 </Link>
@@ -42,6 +44,5 @@ export default function CurrentWorkout (props) {
                     <PrimaryBtn>Submit Workout</PrimaryBtn>
                 </Link>
             </div>
-        </Link>
     );  
 }
