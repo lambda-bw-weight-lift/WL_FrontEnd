@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useScrollTrigger } from '@material-ui/core';
 import { history } from '../App'
 
 

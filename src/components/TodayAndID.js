@@ -1,4 +1,3 @@
-import React from "react";
 
 
 function Today() {
@@ -33,7 +32,7 @@ function Id() {
       mm = '0' + mm;
     }
     var yy= yyyy.toString().slice(-2);
-    var id = dd + '/' + mm + '/' + yy; 
+    id = dd + '/' + mm + '/' + yy; 
     
         return(
             id 

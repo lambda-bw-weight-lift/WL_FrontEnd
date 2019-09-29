@@ -1,10 +1,9 @@
 import React from "react";
-import {Link} from "react-router-dom";
+
 import styled from "styled-components";
 // Unique token to verify user should have access to info
-import axiosWithAuth from "../utils/axiosWithAuth";
-import {PrimaryBtn} from "./Buttons"
-import { aerobic, arms, core, legs, stretches, upperBody} from "../media/SvgIcons"
+import { PrimaryBtn } from "./Buttons"
+import { aerobic, arms, core, legs, stretches, upperBody } from "../media/SvgIcons"
 
 const StyledSection = styled.section`
     box-sizing:border-box;
@@ -37,126 +36,99 @@ const StyledSection = styled.section`
     }
 `;
 
-function PreviousWorkoutCard (props) {
+function PreviousWorkoutCard(props) {
+    console.log("props.workout inside of PreviousWorkoutCard", props.workout)
+    const svgArray = [aerobic, arms, core, legs, stretches, upperBody];
 
-    const svgArray=[aerobic, arms, core, legs, stretches, upperBody];
-    // CONST WORKOUT IS DUMMY DATA (^_^)
-    const workout = [
-        {
-            date: "9/22/19 - Monday",    
-            exercise: "squats",
-            exerciseRegion: "legs",
-            restPeriod: "1 min",
-            sets: "5x5",
-            weight: "200 lbs"
-        },
-        {
-            exercise: "bench press",
-            exerciseRegion: "upperBody",
-            restPeriod: "45 seconds",
-            sets: "4x8",
-            weight: "155 lbs",
-        },
-        {
-            exercise: "bent-over row",
-            exerciseRegion: "upperBody",
-            restPeriod: "30 seconds",
-            sets: "3x12",
-            weight: "135 lbs",
-        }
-
-    ];
-    return(
+    return (
         <div>
-            <header>
-                <h3>
-                    {workout.date}
-                </h3> 
-            </header>
-            // WORKOUT.MAP NEEDS TO BE CHANGED TO APPROPRIATE PROPS BEING PASSED DOWN
-            {workout.map(eachExerciseInWorkout => {  
-                if (eachExerciseInWorkout.exerciseRegion === "aerobic"){
-                    return(
-                        <StyledSection>
+            {props.workout.exercises.map((eachExerciseInWorkout) => {
+                if (eachExerciseInWorkout.exerciseregion === "aerobic") {
+                    return (
+                        <StyledSection key={eachExerciseInWorkout.exerciseid}>
                             <div className="svg">
-                                {svgArray[0]}   
+                                {svgArray[0]}
                             </div>
                             <div className="data">
-                                <h4>{eachExerciseInWorkout.exercise}</h4>
-                                <p>{eachExerciseInWorkout.sets}</p>
+                                <h4>{eachExerciseInWorkout.exercisename}</h4>
+                                <p>{eachExerciseInWorkout.reps}</p>
                             </div>
                         </StyledSection>
                     )
                 }
-                else if (eachExerciseInWorkout.exerciseRegion === "arms"){
-                    return(
-                        <StyledSection>
+                else if (eachExerciseInWorkout.exerciseregion === "arms") {
+                    return (
+                        <StyledSection key={eachExerciseInWorkout.exerciseid}>
                             <div className="svg">
-                                {svgArray[1]}   
+                                {svgArray[1]}
                             </div>
                             <div className="data">
-                                <h4>{eachExerciseInWorkout.exercise}</h4>
-                                <p>{eachExerciseInWorkout.sets}</p>
+                                <h4>{eachExerciseInWorkout.exercisename}</h4>
+                                <p>{eachExerciseInWorkout.reps}</p>
                             </div>
                         </StyledSection>
                     )
-                }else if (eachExerciseInWorkout.exerciseRegion === "core"){
-                    return(
-                        <StyledSection>
+                } else if (eachExerciseInWorkout.exerciseregion === "core") {
+                    return (
+                        <StyledSection key={eachExerciseInWorkout.exerciseid}>
                             <div className="svg">
-                                {svgArray[2]}   
+                                {svgArray[2]}
                             </div>
                             <div className="data">
-                                <h4>{eachExerciseInWorkout.exercise}</h4>
-                                <p>{eachExerciseInWorkout.sets}</p>
+                                <h4>{eachExerciseInWorkout.exercisename}</h4>
+                                <p>{eachExerciseInWorkout.reps}</p>
                             </div>
                         </StyledSection>
                     )
-                }else if (eachExerciseInWorkout.exerciseRegion === "legs"){
-                    return(
-                        <StyledSection>
+                } else if (eachExerciseInWorkout.exerciseregion === "legs") {
+                    return (
+                        <StyledSection key={eachExerciseInWorkout.exerciseid}>
                             <div className="svg">
-                                {svgArray[3]}   
+                                {svgArray[3]}
                             </div>
                             <div className="data">
-                                <h4>{eachExerciseInWorkout.exercise}</h4>
-                                <p>{eachExerciseInWorkout.sets}</p>
+                                <h4>{eachExerciseInWorkout.exercisename}</h4>
+                                <p>{eachExerciseInWorkout.reps}</p>
                             </div>
                         </StyledSection>
                     )
-                }else if (eachExerciseInWorkout.exerciseRegion === "stretches"){
-                    return(
-                        <StyledSection>
+                } else if (eachExerciseInWorkout.exerciseregion === "stretches") {
+                    return (
+                        <StyledSection key={eachExerciseInWorkout.exerciseid}>
                             <div className="svg">
-                                {svgArray[4]}   
+                                {svgArray[4]}
                             </div>
                             <div className="data">
-                                <h4>{eachExerciseInWorkout.exercise}</h4>
-                                <p>{eachExerciseInWorkout.sets}</p>
+                                <h4>{eachExerciseInWorkout.exercisename}</h4>
+                                <p>{eachExerciseInWorkout.reps}</p>
                             </div>
                         </StyledSection>
                     )
-                }else if (eachExerciseInWorkout.exerciseRegion === "upperBody"){
-                    return(
-                        <StyledSection>
+                } else if (eachExerciseInWorkout.exerciseregion === "upperBody") {
+                    return (
+                        <StyledSection key={eachExerciseInWorkout.exerciseid}>
                             <div className="svg">
-                                {svgArray[5]}   
+                                {svgArray[5]}
                             </div>
                             <div className="data">
-                                <h4>{eachExerciseInWorkout.exercise}</h4>
-                                <p>{eachExerciseInWorkout.sets}</p>
+                                <h4>{eachExerciseInWorkout.exercisename}</h4>
+                                <p>{eachExerciseInWorkout.reps}</p>
                             </div>
                         </StyledSection>
                     )
                 }
             })
-        }
-        // WHAT PATH ARE WE LINKING TO HERE???????!?!?!?!?!?!?!?!?!?
-            <Link to="/">
+
+
+            }
+            {/* <Link to="/">
                 <PrimaryBtn> View </PrimaryBtn>
-            </Link> 
+            </Link>  */}
+
         </div>
-    );
+
+
+    )
 }
 
 export default PreviousWorkoutCard

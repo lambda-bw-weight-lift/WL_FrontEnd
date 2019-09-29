@@ -10,7 +10,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import PreviousWorkout from "./components/PreviousWorkout";
 import CurrentWorkout from "./components/CurrentWorkout";
-import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
+// import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
 import EditExercise from './components/EditExercise';
 import { createBrowserHistory } from 'history';
@@ -20,7 +20,6 @@ import { Today, Weekday } from "./components/TodayAndID";
 import { WorkoutContext } from "./contexts/WorkoutContext";
 
 // Adding private route and axiosWithAuth, which must be used for components that require the user to be log-in 
-import PrivateRoute from "./components/PrivateRoute";
 import axiosWithAuth from "./utils/axiosWithAuth";
 
 export const history = createBrowserHistory();
@@ -51,17 +50,16 @@ function App() {
   }
 
   useEffect(() => {
+    console.log("useEffect")
     getWorkouts();
+    console.log("useEffectEnd")
   }, []);
 
   // THIS IS THE CREATION OF THE NEW WORKOUT LANDING ZONE TO WHICH EXERCISES CAN BE ADDED
-  console.log(typeof (Today()))
-  console.log(typeof (Weekday()))
-  // console.log(typeof(`${Today()}  ${Weekday()}`)
   const [trigger, setTrigger] = useState("")
   const [workout, setWorkout] = useState({ "workoutname": `${Today()} - ${Weekday()}`, "workoutlength": "" })
   const [user, setUser] = useState({});
-  // const [workout, setWorkout]= useState({"workoutname": "today **this needs to be replaced with code one line above***" })
+  
   const newWorkoutTrigger = () => {
     setTrigger(trigger => trigger += "1")
   }
@@ -101,21 +99,17 @@ function App() {
 
           <Route path="/login" render={(props) => <Login setUser={setUser} />} />
           <Route path="/signup" component={SignUp} />
-          {/* <Route path="/add-exercise" render={(props) => <AddExercise {...props}  workoutid={workout.workoutid} />} /> */}
+      
           <Route path="/add-exercise" render={(props) => <AddExercise {...props} setExerciseid={setExerciseid} workoutid={workout.workoutid} />} />
-          {/* {addRoute} */}
+          
           <Route path="/edit-exercise" render={(props) => <EditExercise {...props} exerciseid={exerciseid} />} />
           <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />} />
-          <Route path="/history" render={(props) => <PreviousWorkout {...props} />} />
+          <Route path="/history" render={(props) => <PreviousWorkout {...props} workoutsArray={workoutsArray}/>} />
 
-          {/* <PrivateRoute component={AddExercise} path="/add-exercise" render={(props) => <AddExercise {...props} workoutid={workout.workoutid} />  }/>
-        <PrivateRoute component={CurrentWorkout} path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />  }/>
-        <PrivateRoute component={GetStarted} exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger}/>} />
-        // <PrivateRoute component={PreviousWorkout} path="/history" render={(props) => <PreviousWorkout {...props} />  }/>*/}
         </Router>
       </div>
     </WorkoutContext.Provider>
   );
 }
 
-export default App;
+export default App; 

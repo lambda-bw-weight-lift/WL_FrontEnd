@@ -1,12 +1,10 @@
-import React, {useState, useEffect, useContext} from "react";
-import styled from "styled-components";
+import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {PrimaryBtn, SecondaryBtn} from "./Buttons";
 import {Today, Weekday} from "./TodayAndID";
 import CurrentWorkoutCard from "./CurrentWorkoutCard";
 
 // Context
-import {WorkoutContext} from "../contexts/WorkoutContext";
 import axiosWithAuth from "../utils/axiosWithAuth";
 
 
@@ -30,12 +28,10 @@ export default function CurrentWorkout (props) {
  
     return(
         <Link to="/add-exercise">
-            <div>
+            <section>
                 <h3>{Today()} - {Weekday()}</h3>
                 <Link to="/edit-exercise">
-                    <div>
-                        {workout.map(exercise => <CurrentWorkoutCard key={exercise.exerciseid} exercise={exercise}/>)}
-                    </div>
+                    {workout.map(exercise => <CurrentWorkoutCard key={exercise.exerciseid} exercise={exercise}/>)}
                 </Link>
                 <Link to="/add-exercise">
                     <SecondaryBtn>Add Exercise</SecondaryBtn>
@@ -43,7 +39,7 @@ export default function CurrentWorkout (props) {
                 <Link to="/history">
                     <PrimaryBtn>Submit Workout</PrimaryBtn>
                 </Link>
-            </div>
+            </section>
         </Link>
     );  
 }
