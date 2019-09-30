@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import PreviousWorkout from "./components/PreviousWorkout";
 import CurrentWorkout from "./components/CurrentWorkout";
+import SpecificWorkout from "./components/SpecificWorkout"
 // import CurrentWorkoutCard from "./components/CurrentWorkoutCard";
 import AddExercise from "./components/AddExercise";
 import EditExercise from './components/EditExercise';
@@ -36,14 +37,15 @@ const AppNav = styled.nav`
 
 
 function App() {
+  const [exerciseid, setExerciseid] = useState(0)
   const [workoutsArray, setWorkoutsArray] = useState([]);
+
   console.log("Workouts array in app ", workoutsArray);
 
   const getWorkouts = () => {
     return axiosWithAuth()
       .get(`https://lifting-weights-java.herokuapp.com/workouts/all`) // end point to return all previous workouts
       .then(res => {
-        console.log('Get request from endpoint "/workouts/all" successful ', res.data);
         setWorkoutsArray(res.data);
       })
       .catch(err => console.log("Get request failed b/c ", err.response));
@@ -53,62 +55,55 @@ function App() {
     console.log("useEffect")
     getWorkouts();
     console.log("useEffectEnd")
-  }, []);
+  }, [exerciseid]);
 
   // THIS IS THE CREATION OF THE NEW WORKOUT LANDING ZONE TO WHICH EXERCISES CAN BE ADDED
   const [trigger, setTrigger] = useState("")
-  const [workout, setWorkout] = useState({ "workoutname": `${Today()} - ${Weekday()}`, "workoutlength": "" })
+  const [workoutTitle, setWorkoutTitle] = useState({ "workoutname": `${Today()} - ${Weekday()}`, "workoutlength": "" })
+  const [workout, setWorkout] = useState({})
   const [user, setUser] = useState({});
-  
+
   const newWorkoutTrigger = () => {
     setTrigger(trigger => trigger += "1")
   }
   useEffect(() => {
 
     axiosWithAuth(user)
-      .post(`https://lifting-weights-java.herokuapp.com/workouts/current/${user.username}`, workout)
+      .post(`https://lifting-weights-java.herokuapp.com/workouts/current/${user.username}`, workoutTitle)
       .then(results => {
         setWorkout(results.data)
-        setUser(results.data.user)
-        console.log("IT DID post workout submission to endpoint '/workouts/current/{username}' correctly", results, workout)
+        // setUser(results.data.user)   DO I NEED TO REDECLARE THE USER? IT SHOULD BE SAVED IN STATE ALREADY
+        console.log("IT DID post workout submission to endpoint '/workouts/current/{username}' correctly", results)
       })
       .catch(error => {
         console.log("error, did not post workout submission to endpoint '/workouts/current/{username}' correctly", error)
       })
   }, [trigger])
-  // THIS IS THE USE STATE WHERE THE EXERCISE ID IS BEING KEPT --> IT should be Set IN ADD EXERCISE LINE93
-  const [exerciseid, setExerciseid] = useState(0)
-  
- 
-  const idConsoleCheck = ()=> (exerciseid)? console.log("addExercise.js passed up reults to app.js correctly?", exerciseid) : console.log("the exerciseid was never set")
-  idConsoleCheck()
-  
 
   return (
-    <WorkoutContext.Provider value={{ workoutsArray }}>
-      <div className="App">
-        <AppNav>
-          <Link to="/">
-            <h1>Weight Lifting</h1>
-          </Link>
-          <MobileMenu newWorkoutTrigger={newWorkoutTrigger} ></MobileMenu>
-        </AppNav>
-        <Router history={history}>
 
-          <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger} />} />
+    <div className="App">
+      <AppNav>
+        <Link to="/">
+          <h1>Weight Lifting</h1>
+        </Link>
+        <MobileMenu newWorkoutTrigger={newWorkoutTrigger} ></MobileMenu>
+      </AppNav>
+      <Router history={history}>
 
-          <Route path="/login" render={(props) => <Login setUser={setUser} />} />
-          <Route path="/signup" component={SignUp} />
-      
-          <Route path="/add-exercise" render={(props) => <AddExercise {...props} setExerciseid={setExerciseid} workoutid={workout.workoutid} />} />
-          
-          <Route path="/edit-exercise" render={(props) => <EditExercise {...props} exerciseid={exerciseid} />} />
-          <Route path="/today" render={(props) => <CurrentWorkout {...props} workout={workout} />} />
-          <Route path="/history" render={(props) => <PreviousWorkout {...props} workoutsArray={workoutsArray}/>} />
+        <Route exact path="/" render={(props) => <GetStarted {...props} newWorkoutTrigger={newWorkoutTrigger} />} />
+        <Route path="/login" render={(props) => <Login {...props} setUser={setUser} />} />
+        <Route path="/signup" component={SignUp} />
 
-        </Router>
-      </div>
-    </WorkoutContext.Provider>
+        <Route path="/today" render={(props) => <CurrentWorkout {...props} setExerciseid={setExerciseid} workout={workout} />} />
+        <Route path="/add-exercise" render={(props) => <AddExercise {...props} setExerciseid={setExerciseid} workoutid={workout.workoutid} />} />
+        <Route path="/edit-exercise" render={(props) => <EditExercise {...props} exerciseid={exerciseid} setExerciseid={setExerciseid} />} />
+        {/* IF THIS WORKS TAKE OUT setExerciseid FROM AddExercise */}
+        <Route exact path="/history" render={(props) => <PreviousWorkout {...props} workoutsArray={workoutsArray} />} />
+        <Route path="history-detailed" />
+      </Router>
+    </div>
+
   );
 }
 

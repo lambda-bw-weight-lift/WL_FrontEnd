@@ -1,13 +1,13 @@
 import React from "react";
 // import styled from "styled-components";
-import { withFormik, Form, Field} from "formik"
+import { withFormik, Form, Field } from "formik"
 import * as Yup from "yup";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import '../index.css';
 
 
-function AddExercise({values, errors, touched, status }) {
-    
+function AddExercise({ values, errors, touched }) {
+
 
     return (
         <>
@@ -36,7 +36,7 @@ function AddExercise({values, errors, touched, status }) {
                     </Field>
                 </label>
                 {/* <Link to="/today"> */}
-                    <button className="form button" type="submit">Submit Exercise</button>
+                <button className="form button" type="submit">Submit Exercise</button>
                 {/* </Link> */}
 
             </Form>
@@ -68,9 +68,7 @@ const FormikAddExercise = withFormik({
             workoutid: workoutid || ""
         };
     },
-    handleSubmit(values, { setStatus, props, resetForm }) {
-        console.log(values);
-        console.log("props inside handle submit",props);
+    handleSubmit(values, { props, resetForm }) {
         // const bodyData = new FormData();
         // bodyData.set("exercisename", values.exercisename);
         // bodyData.set("weightlifted", values.weightlifted);
@@ -87,16 +85,14 @@ const FormikAddExercise = withFormik({
             // .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, bodyData)
             .post(`https://lifting-weights-java.herokuapp.com/workouts/${values.workoutid}`, values)
             .then(results => {
-                console.log("result of post within handleSubmit in AddExercise.js", results)
-                // setStatus(results.data);
+                console.log("result of post within handleSubmit in AddExercise.js setExerciseid to:", results)
                 resetForm();
-                props.history.push("/today")
                 props.setExerciseid(results)
+                props.history.push("/today")
             })
             .catch(error => {
                 console.log("error, did not post data correctly", error.response)
             })
-        console.log("looking for values", values)
 
     }
 })(AddExercise);

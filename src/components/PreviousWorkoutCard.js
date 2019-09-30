@@ -121,10 +121,6 @@ function PreviousWorkoutCard(props) {
 
 
             }
-            {/* <Link to="/">
-                <PrimaryBtn> View </PrimaryBtn>
-            </Link>  */}
-
         </div>
 
 
