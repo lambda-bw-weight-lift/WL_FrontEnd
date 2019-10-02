@@ -33,8 +33,7 @@ function EditExercise(props) {
             .then(results => {
                 console.log("result of post within handleSubmit in EditExercise.js", results)
                 setEditExercise(newBlankExercise)
-                props.setExerciseid(props.exerciseid)
-
+                props.getWorkouts()
                 props.history.push("/today")
             })
             .catch(error => {

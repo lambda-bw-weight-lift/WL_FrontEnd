@@ -43,6 +43,7 @@ function App() {
   console.log("Workouts array in app ", workoutsArray);
 
   const getWorkouts = () => {
+
     return axiosWithAuth()
       .get(`https://lifting-weights-java.herokuapp.com/workouts/all`) // end point to return all previous workouts
       .then(res => {
@@ -97,7 +98,7 @@ function App() {
 
         <Route path="/today" render={(props) => <CurrentWorkout {...props} setExerciseid={setExerciseid} workout={workout} />} />
         <Route path="/add-exercise" render={(props) => <AddExercise {...props} setExerciseid={setExerciseid} workoutid={workout.workoutid} />} />
-        <Route path="/edit-exercise" render={(props) => <EditExercise {...props} exerciseid={exerciseid} setExerciseid={setExerciseid} />} />
+        <Route path="/edit-exercise" render={(props) => <EditExercise {...props} getWorkouts={getWorkouts} exerciseid={exerciseid} setExerciseid={setExerciseid} />} />
         {/* IF THIS WORKS TAKE OUT setExerciseid FROM AddExercise */}
         <Route exact path="/history" render={(props) => <PreviousWorkout {...props} workoutsArray={workoutsArray} />} />
         <Route path="history-detailed" />
