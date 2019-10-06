@@ -2,7 +2,6 @@ import React from "react";
 
 import styled from "styled-components";
 // Unique token to verify user should have access to info
-import { PrimaryBtn } from "./Buttons"
 import { aerobic, arms, core, legs, stretches, upperBody } from "../media/SvgIcons"
 
 const StyledSection = styled.section`
@@ -116,6 +115,8 @@ function PreviousWorkoutCard(props) {
                             </div>
                         </StyledSection>
                     )
+                } else {
+                    return <div></div>
                 }
             })
 

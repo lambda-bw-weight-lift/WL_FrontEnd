@@ -39,6 +39,7 @@ const AppNav = styled.nav`
 function App() {
   const [exerciseid, setExerciseid] = useState(0)
   const [workoutsArray, setWorkoutsArray] = useState([]);
+  const [entireWorkout, setEntireWorkout] = useState([])
 
   console.log("Workouts array in app ", workoutsArray);
 
@@ -100,8 +101,8 @@ function App() {
         <Route path="/add-exercise" render={(props) => <AddExercise {...props} setExerciseid={setExerciseid} workoutid={workout.workoutid} />} />
         <Route path="/edit-exercise" render={(props) => <EditExercise {...props} getWorkouts={getWorkouts} exerciseid={exerciseid} setExerciseid={setExerciseid} />} />
         {/* IF THIS WORKS TAKE OUT setExerciseid FROM AddExercise */}
-        <Route exact path="/history" render={(props) => <PreviousWorkout {...props} workoutsArray={workoutsArray} />} />
-        <Route path="history-detailed" />
+        <Route exact path="/history" render={(props) => <PreviousWorkout {...props} workoutsArray={workoutsArray} setEntireWorkout={setEntireWorkout} />} />
+        <Route path="/history/detailed" render={(props) => <SpecificWorkout {...props} entireWorkout={entireWorkout} getWorkouts={getWorkouts} />} />
       </Router>
     </div>
 
